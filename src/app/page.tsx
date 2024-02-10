@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default async function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#FEFAE0]">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#FEFAE0] px-4 text-center md:px-10">
       <div className="p-10">
         <Image src="/main_logo.png" width={250} height={250} alt="logo" />
       </div>
