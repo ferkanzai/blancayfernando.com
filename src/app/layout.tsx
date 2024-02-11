@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 
+import type { Viewport } from "next";
 import { Poppins } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
@@ -17,13 +18,17 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+export const viewport: Viewport = {
+  themeColor: "black",
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`font-sans ${poppins.className}`}>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
