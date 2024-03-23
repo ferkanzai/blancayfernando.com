@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { Viewport } from "next";
 import { Poppins } from "next/font/google";
 
+import Header from "@/app/components/header";
 import { TRPCReactProvider } from "@/trpc/react";
 
 const poppins = Poppins({
@@ -32,7 +33,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`font-sans ${poppins.className}`}>
+      <body
+        className={`font-sans ${poppins.className} bg-background min-h-svh`}
+      >
+        <Header />
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
