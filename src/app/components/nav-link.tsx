@@ -20,14 +20,13 @@ export default function NavLink({
         `
           text-center
           transition
-          hover:scale-105
           hover:font-bold
           hover:underline
           hover:underline-offset-4
+          md:hover:scale-105
         `,
         isActive
           ? `
-              scale-105
               font-bold
               underline
               underline-offset-4
