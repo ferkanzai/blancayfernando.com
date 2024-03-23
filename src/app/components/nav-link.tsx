@@ -30,6 +30,8 @@ export default function NavLink({
           ? `
               underline
               underline-offset-4
+              hover:scale-100
+              hover:[text-shadow:none]
             `
           : null,
         className,
