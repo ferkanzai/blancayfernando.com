@@ -19,15 +19,15 @@ export default function NavLink({
       className={cn(
         `
           text-center
+          antialiased
           transition
-          hover:font-bold
+          hover:scale-105
           hover:underline
           hover:underline-offset-4
-          md:hover:scale-105
+          hover:[text-shadow:_0_0_1px_black]
         `,
         isActive
           ? `
-              font-bold
               underline
               underline-offset-4
             `
