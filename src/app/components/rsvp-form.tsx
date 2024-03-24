@@ -31,7 +31,7 @@ export default function RsvpForm() {
   return (
     <Form {...form}>
       <form
-        className="flex w-full flex-col gap-4 px-8 pb-10 md:max-w-md md:px-0"
+        className="flex w-full flex-col gap-4 pb-10 sm:px-8 md:max-w-md md:px-0"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {fields.map((field, index) => {
@@ -41,6 +41,7 @@ export default function RsvpForm() {
         })}
         <Button
           type="button"
+          variant="outline"
           onClick={() => {
             if (fields.length >= 5) {
               toast.error("El máximo de invitados por envío es de 5");

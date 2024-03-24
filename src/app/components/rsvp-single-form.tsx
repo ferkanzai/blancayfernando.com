@@ -10,6 +10,8 @@ import {
 } from "@/app/components/ui/form";
 import { Input } from "@/app/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group";
+import { type FormSchema } from "@/app/types/schemas/form";
+import { cn } from "@/lib/utils";
 
 export default function RsvpSingleForm({
   onRemove,
@@ -18,10 +20,27 @@ export default function RsvpSingleForm({
   onRemove: UseFieldArrayRemove;
   position: number;
 }) {
-  const form = useFormContext();
+  const { getFieldState, formState, control } = useFormContext();
+
+  const { invalid: nameInvalid, error: nameError } = getFieldState(
+    `responses.${position}.name`,
+    formState,
+  );
+  const { invalid: comingInvalid, error: comingError } = getFieldState(
+    `responses.${position}.coming`,
+    formState,
+  );
+  const fieldHasError = (
+    formState.errors.responses as unknown as FormSchema["responses"]
+  )?.[position];
 
   return (
-    <div className="relative flex flex-col justify-start gap-3 rounded-lg border border-primary p-4">
+    <div
+      className={cn(
+        "relative flex flex-col justify-start gap-3 rounded-lg border p-4",
+        fieldHasError ? "border-red-500" : "border-primary",
+      )}
+    >
       {position !== 0 ? (
         <X
           className="absolute right-2 top-2 cursor-pointer"
@@ -30,14 +49,19 @@ export default function RsvpSingleForm({
       ) : null}
       <FormField
         name={`responses.${position}.name` as const}
-        control={form.control}
+        control={control}
         render={({ field }) => (
           <FormItem className="flex flex-col items-start gap-3">
             <FormLabel className="text-lg">Nombre y apellidos *</FormLabel>
             <FormControl>
               <Input
                 {...field}
-                className="m-0 text-base"
+                className={cn(
+                  "m-0 text-base",
+                  nameInvalid && nameError
+                    ? "border-red-500 focus-visible:ring-red-500"
+                    : "",
+                )}
                 placeholder="Nombre y apellidos"
               />
             </FormControl>
@@ -48,7 +72,7 @@ export default function RsvpSingleForm({
 
       <FormField
         name={`responses.${position}.coming` as const}
-        control={form.control}
+        control={control}
         render={({ field }) => (
           <FormItem className="flex flex-col items-start gap-3">
             <FormLabel className="text-lg">¿Vendrás?</FormLabel>
@@ -60,15 +84,25 @@ export default function RsvpSingleForm({
               >
                 <FormItem className="flex items-center space-x-3 space-y-0">
                   <FormControl>
-                    <RadioGroupItem value="yes" />
+                    <RadioGroupItem
+                      value="yes"
+                      className={cn(
+                        comingInvalid && comingError ? "border-red-500" : null,
+                      )}
+                    />
                   </FormControl>
                   <FormLabel className="text-md font-normal">
-                    ¡No me lo pierdo!
+                    ¡Claro qué sí!
                   </FormLabel>
                 </FormItem>
                 <FormItem className="flex items-center space-x-3 space-y-0">
                   <FormControl>
-                    <RadioGroupItem value="no" />
+                    <RadioGroupItem
+                      value="no"
+                      className={cn(
+                        comingInvalid && comingError ? "border-red-500" : null,
+                      )}
+                    />
                   </FormControl>
                   <FormLabel className="text-md font-normal">
                     Una pena, pero no podré ir...
@@ -83,15 +117,15 @@ export default function RsvpSingleForm({
 
       <FormField
         name={`responses.${position}.allergies` as const}
-        control={form.control}
+        control={control}
         render={({ field }) => (
           <FormItem className="flex flex-col items-start gap-3">
-            <FormLabel className="text-lg">Alergias</FormLabel>
+            <FormLabel className="text-lg">Alergias o intolerancias</FormLabel>
             <FormControl>
               <Input
                 {...field}
                 className="m-0 text-base"
-                placeholder="Alergias"
+                placeholder="Alergias o intolerancias"
               />
             </FormControl>
             <FormMessage className="text-red-500" />
