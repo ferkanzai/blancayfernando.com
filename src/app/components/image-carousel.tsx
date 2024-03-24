@@ -3,12 +3,12 @@
 import AutoScroll from "embla-carousel-auto-scroll";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
+import { BlurredImage } from "@/app/components/blurred-image";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/app/components/ui/carousel";
-import { BlurredImage } from "./blurred-image";
 
 export function ImageCarousel() {
   const images = Array.from({ length: 19 }, (_, i) => i + 1).sort(
@@ -31,13 +31,15 @@ export function ImageCarousel() {
       ]}
       opts={{
         loop: true,
+        dragFree: true,
+        containScroll: "trimSnaps",
       }}
     >
-      <CarouselContent>
+      <CarouselContent className="min-h-[180px]">
         {images.map((imageIndex) => (
           <CarouselItem
             key={imageIndex}
-            className="grid basis-1/2 place-content-center md:basis-1/3 lg:basis-1/5"
+            className="grid basis-1/2 place-content-center sm:basis-1/3 md:basis-1/4 lg:basis-[13%] xl:basis-[10%]"
           >
             <BlurredImage
               url={`/carousel/${imageIndex < 10 ? "0" : ""}${imageIndex}.webp`}

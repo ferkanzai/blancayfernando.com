@@ -1,19 +1,26 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { dynamicBlurDataUrl } from "@/app/lib/dynamicBlur";
 
-export async function BlurredImage({ url }: { url: string }) {
-  const blurredUrl = await dynamicBlurDataUrl(url);
+export function BlurredImage({ url }: { url: string }) {
+  const [image, setImage] = useState<string | null>(null);
 
-  return (
+  useEffect(() => {
+    void dynamicBlurDataUrl(url).then(setImage);
+  }, [url]);
+
+  return image ? (
     <Image
       src={url}
-      width={300}
-      height={300}
+      width={200}
+      height={200}
       alt="logo"
-      className="rounded-xl object-contain grayscale filter transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0"
+      className="cursor-all-scroll rounded-xl object-contain grayscale filter transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0"
       placeholder="blur"
-      blurDataURL={blurredUrl}
+      blurDataURL={image}
     />
-  );
+  ) : null;
 }
