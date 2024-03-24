@@ -11,15 +11,19 @@ import {
 } from "@/app/components/ui/carousel";
 
 export function ImageCarousel() {
+  const images = Array.from({ length: 19 }, (_, i) => i + 1).sort(
+    () => Math.random() - 0.5,
+  );
+
   return (
     <Carousel
-      className="w-full md:max-w-[90%] lg:max-w-[80%]"
+      className="w-full"
       plugins={[
         AutoScroll({
           playOnInit: true,
           stopOnInteraction: false,
           stopOnMouseEnter: true,
-          speed: 0.5,
+          speed: 1,
         }),
         WheelGesturesPlugin({
           forceWheelAxis: "x",
@@ -30,13 +34,13 @@ export function ImageCarousel() {
       }}
     >
       <CarouselContent>
-        {Array.from({ length: 16 }).map((_, index) => (
+        {images.map((imageIndex) => (
           <CarouselItem
-            key={index}
-            className="grid basis-1/2 place-content-center md:basis-1/3 lg:basis-1/6"
+            key={imageIndex}
+            className="grid basis-1/2 place-content-center md:basis-1/3 lg:basis-1/5"
           >
             <Image
-              src={`/carousel/${index < 9 ? "0" : ""}${index + 1}.webp`}
+              src={`/carousel/${imageIndex < 10 ? "0" : ""}${imageIndex}.webp`}
               width={800}
               height={800}
               alt="logo"
