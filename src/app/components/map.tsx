@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
 
+import { env } from "@/env";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import {
   Children,
@@ -24,10 +25,7 @@ const render = (status: Status) => {
 export function MapWrapper() {
   return (
     <div className="h-80 w-full sm:w-3/5">
-      <Wrapper
-        apiKey={"AIzaSyBokc_FkZk93BkUYzjekwFj3r_W9QRMP_E"}
-        render={render}
-      >
+      <Wrapper apiKey={env.GOOGLE_MAPS_API} render={render}>
         <Map>
           <Marker
             position={{ lat: 40.40548, lng: -3.68363 }}
