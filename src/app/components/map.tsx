@@ -25,7 +25,7 @@ const render = (status: Status) => {
 export function MapWrapper() {
   return (
     <div className="h-80 w-full sm:w-3/5">
-      <Wrapper apiKey={env.GOOGLE_MAPS_API} render={render}>
+      <Wrapper apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_API} render={render}>
         <Map>
           <Marker
             position={{ lat: 40.40548, lng: -3.68363 }}
