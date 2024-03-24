@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import type { Viewport } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "sonner";
 
 import Header from "@/app/components/header";
 import { TRPCReactProvider } from "@/trpc/react";
@@ -34,10 +35,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`font-sans ${poppins.className} bg-background min-h-svh`}
+        className={`font-sans ${poppins.className} min-h-svh bg-background`}
       >
         <Header />
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );
