@@ -85,11 +85,7 @@ const Marker = (options: google.maps.MarkerOptions) => {
 
   useEffect(() => {
     if (!marker) {
-      setMarker(
-        new google.maps.Marker({
-          ...options,
-        }),
-      );
+      setMarker(new google.maps.Marker());
     }
 
     // remove marker from map on unmount
