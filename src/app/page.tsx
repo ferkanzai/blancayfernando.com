@@ -8,7 +8,7 @@ export default async function Home() {
       <h1 className="font-maginia text-4xl font-bold text-[#93987C]">
         19 de Octubre de 2024
       </h1>
-      <div className="h-80 w-3/5">
+      <div className="h-80 w-full sm:w-3/5">
         <MapWrapper />
       </div>
     </main>
