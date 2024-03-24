@@ -11,7 +11,7 @@ export async function BlurredImage({ url }: { url: string }) {
       width={300}
       height={300}
       alt="logo"
-      className="rounded-xl object-contain"
+      className="rounded-xl object-contain grayscale filter transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0"
       placeholder="blur"
       blurDataURL={blurredUrl}
     />

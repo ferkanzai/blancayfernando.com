@@ -48,9 +48,9 @@ const config = {
       },
       colors: {
         background: "#FEFAE0",
-        primary: "#93987C",
-        secondary: "#283618",
-        accent: "#606C38",
+        primary: "#283618",
+        secondary: "#4f772d",
+        accent: "#31572c",
       },
     },
   },
