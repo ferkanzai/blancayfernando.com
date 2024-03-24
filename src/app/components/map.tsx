@@ -23,20 +23,25 @@ const render = (status: Status) => {
 
 export function MapWrapper() {
   return (
-    <Wrapper apiKey={"AIzaSyBokc_FkZk93BkUYzjekwFj3r_W9QRMP_E"} render={render}>
-      <Map>
-        <Marker
-          position={{ lat: 40.40548, lng: -3.68363 }}
-          title="Real Basílica Nuestra Señora de Atocha"
-          label="1"
-        />
-        <Marker
-          position={{ lat: 40.40535, lng: -3.6829 }}
-          title="Fábrica de Tapices"
-          label="2"
-        />
-      </Map>
-    </Wrapper>
+    <div className="h-80 w-full sm:w-3/5">
+      <Wrapper
+        apiKey={"AIzaSyBokc_FkZk93BkUYzjekwFj3r_W9QRMP_E"}
+        render={render}
+      >
+        <Map>
+          <Marker
+            position={{ lat: 40.40548, lng: -3.68363 }}
+            title="Real Basílica Nuestra Señora de Atocha"
+            label="1"
+          />
+          <Marker
+            position={{ lat: 40.40535, lng: -3.6829 }}
+            title="Fábrica de Tapices"
+            label="2"
+          />
+        </Map>
+      </Wrapper>
+    </div>
   );
 }
 

@@ -8,9 +8,7 @@ export default async function Home() {
       <h1 className="py-8 font-maginia text-4xl font-bold text-[#93987C]">
         19 Octubre 2024
       </h1>
-      <div className="h-80 w-full sm:w-3/5">
-        <MapWrapper />
-      </div>
+      <MapWrapper />
     </main>
   );
 }
