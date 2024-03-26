@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Boda de Blanca y Fernando - RSVP",
-  description: "Dinos si vienes a la boda desde esta página. ¡Gracias!",
+  description: "Confírmanos si vienes a nuestra boda desde esta página. ¡Gracias!",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
