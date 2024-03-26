@@ -35,18 +35,20 @@ export function ImageCarousel() {
         containScroll: "trimSnaps",
       }}
     >
-      <CarouselContent className="min-h-[180px]">
-        {images.map((imageIndex) => (
-          <CarouselItem
-            key={imageIndex}
-            className="grid basis-1/2 place-content-center sm:basis-1/3 md:basis-1/4 lg:basis-[13%] xl:basis-[10%]"
-          >
-            <BlurredImage
-              url={`/carousel/${imageIndex < 10 ? "0" : ""}${imageIndex}.webp`}
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+      <div className="gradient-borders">
+        <CarouselContent className="min-h-[180px]">
+          {images.map((imageIndex) => (
+            <CarouselItem
+              key={imageIndex}
+              className="grid basis-1/2 place-content-center sm:basis-1/3 md:basis-1/4 lg:basis-[13%] xl:basis-[10%]"
+            >
+              <BlurredImage
+                url={`/carousel/${imageIndex < 10 ? "0" : ""}${imageIndex}.webp`}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </div>
     </Carousel>
   );
 }
