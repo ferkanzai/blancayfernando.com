@@ -16,7 +16,7 @@ const poppins = Poppins({
 export const metadata = {
   title: "Boda de Blanca y Fernando",
   description:
-    "Bienvenidos a nuestra boda que se celebrará el 19 de Octubre de 2024",
+    "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
