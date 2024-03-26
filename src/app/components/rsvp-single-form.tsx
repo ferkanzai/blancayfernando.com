@@ -1,5 +1,8 @@
+"use client";
+
 import { X } from "lucide-react";
 import { useFormContext, type UseFieldArrayRemove } from "react-hook-form";
+import { isSafari, isMobileSafari } from "react-device-detect";
 
 import {
   FormControl,
@@ -37,8 +40,9 @@ export default function RsvpSingleForm({
   return (
     <div
       className={cn(
-        "relative flex flex-col justify-start gap-3 rounded-lg border p-4",
-        fieldHasError ? "border-red-500" : "border-primary",
+        "relative flex flex-shrink-0 flex-col justify-start gap-3 rounded-lg border-2 p-4 ",
+        fieldHasError ? "border-red-500" : "border-secondary",
+        isSafari || isMobileSafari ? "w-full" : "sm:basis-[448px]",
       )}
     >
       {position !== 0 ? (
@@ -80,7 +84,6 @@ export default function RsvpSingleForm({
               <RadioGroup
                 className="flex flex-col gap-3"
                 onValueChange={field.onChange}
-                value={field.value as string}
               >
                 <FormItem className="flex items-center space-x-3 space-y-0">
                   <FormControl>
@@ -92,7 +95,7 @@ export default function RsvpSingleForm({
                     />
                   </FormControl>
                   <FormLabel className="text-md font-normal">
-                    ¡Claro qué sí!
+                    ¡Claro que sí!
                   </FormLabel>
                 </FormItem>
                 <FormItem className="flex items-center space-x-3 space-y-0">

@@ -24,7 +24,7 @@ export const createTable = pgTableCreator(
   (name) => `blancayfernando.com_${name}`,
 );
 
-export const formulary = createTable("formaulary", {
+export const formulary = createTable("formulary", {
   allergies: varchar("allergies", { length: 255 }),
   associatedTo: integer("associatedTo"),
   coming: boolean("coming").notNull(),
@@ -41,6 +41,7 @@ export const formularyRelations = relations(formulary, ({ one }) => ({
 
 export const selectFormularySechma = createSelectSchema(formulary);
 export const selectAllFormularySchema = z.array(selectFormularySechma);
+export const insertSingleFormularySchema = createInsertSchema(formulary);
 export const insertFormularySchema = z
   .array(createInsertSchema(formulary))
   .max(5);
