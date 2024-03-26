@@ -21,7 +21,7 @@ export default function MainCards() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            Ayúdanos a planificar mejor el evento confirmando tu asistencia. ¡Te
+            Ayúdanos a planificar mejor diciéndonos si vienes o no. ¡Te
             esperamos!
           </CardContent>
         </Card>
