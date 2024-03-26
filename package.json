@@ -41,7 +41,6 @@
     "next-auth": "^4.24.5",
     "next-themes": "^0.3.0",
     "react": "18.2.0",
-    "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.1",
     "server-only": "^0.0.1",

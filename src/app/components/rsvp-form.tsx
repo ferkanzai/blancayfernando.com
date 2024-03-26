@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isMobileSafari, isSafari } from "react-device-detect";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -10,7 +9,6 @@ import RsvpSingleForm from "@/app/components/rsvp-single-form";
 import { Button } from "@/app/components/ui/button";
 import { Form } from "@/app/components/ui/form";
 import { formSchema } from "@/app/types/schemas/form";
-import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { Loader2 } from "lucide-react";
 
@@ -40,7 +38,6 @@ export default function RsvpForm() {
   };
 
   const isDisabled = sendInfoToDb.isLoading || form.formState.isSubmitting;
-  console.log(isSafari, isMobileSafari);
 
   return (
     <Form {...form}>
@@ -48,14 +45,7 @@ export default function RsvpForm() {
         className="flex w-full flex-col items-center gap-4 pb-10 sm:px-8 md:px-0"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div
-          className={cn(
-            "no-scrollbar my-0 flex w-full gap-4",
-            isSafari || isMobileSafari
-              ? "flex-col md:max-w-md"
-              : "safe-justify flex-col overflow-x-scroll md:flex-row",
-          )}
-        >
+        <div className="my-0 flex w-full flex-wrap justify-center gap-4">
           {fields.map((field, index) => {
             return (
               <RsvpSingleForm
