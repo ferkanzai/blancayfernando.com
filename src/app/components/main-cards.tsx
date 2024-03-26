@@ -21,8 +21,8 @@ export default function MainCards() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            Ayúdanos a planificar mejor diciéndonos si vienes o no. ¡Te
-            esperamos!
+            <p>Ayúdanos a planificar mejor diciéndonos si vienes o no.</p>
+            <p className="text-lg">¡Te esperamos!</p>
           </CardContent>
         </Card>
       </Link>
