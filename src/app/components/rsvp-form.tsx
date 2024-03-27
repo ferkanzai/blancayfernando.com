@@ -72,6 +72,7 @@ export default function RsvpForm() {
               });
             }}
             className="w-full"
+            disabled={fields.length >= 5}
           >
             Añadir acompañante
           </Button>
