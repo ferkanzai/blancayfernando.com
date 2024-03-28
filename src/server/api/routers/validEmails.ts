@@ -14,10 +14,6 @@ export const validEmailsRouter = createTRPCRouter({
         .from(validEmails)
         .where(eq(validEmails.email, email));
 
-      if (isEmailInDB.length > 0) {
-        return { canSignIn: true };
-      }
-
-      return { canSignIn: false };
+      return { canSignIn: isEmailInDB.length > 0 };
     }),
 });
