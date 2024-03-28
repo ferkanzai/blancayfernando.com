@@ -8,6 +8,7 @@ import { cn } from "@/app/lib/utils";
 export default function NavLink({
   children,
   href,
+  title,
   className = "",
 }: NavLinkProps) {
   const pathname = usePathname();
@@ -16,6 +17,7 @@ export default function NavLink({
   return (
     <Link
       href={href}
+      title={title}
       className={cn(
         `
           text-center
@@ -46,4 +48,5 @@ export type NavLinkProps = {
   children: React.ReactNode;
   className?: string;
   href: string;
+  title: string;
 };
