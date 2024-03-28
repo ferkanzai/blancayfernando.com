@@ -28,6 +28,9 @@ export const formulary = createTable("formulary", {
   allergies: varchar("allergies", { length: 255 }),
   associatedTo: integer("associatedTo"),
   coming: boolean("coming").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
   id: serial("id").notNull().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
 });
@@ -46,8 +49,12 @@ export const insertFormularySchema = z
   .array(createInsertSchema(formulary))
   .max(5);
 
+export const validEmails = createTable("validEmails", {
+  email: varchar("email", { length: 255 }).notNull().primaryKey(),
+});
+
 export const users = createTable("user", {
-  id: serial("id").notNull().primaryKey(),
+  id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
   emailVerified: timestamp("emailVerified", {

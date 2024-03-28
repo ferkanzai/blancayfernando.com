@@ -5,9 +5,16 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
+import EmailProvider from "next-auth/providers/email";
+import { Resend } from "resend";
 
+import SignIn from "@/app/emails/SignIn";
+import { env } from "@/env";
 import { db } from "@/server/db";
 import { createTable } from "@/server/db/schema";
+import { api } from "@/trpc/server";
+
+const resend = new Resend(env.RESEND_API_KEY);
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -19,15 +26,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -46,7 +46,46 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   adapter: DrizzleAdapter(db, createTable) as Adapter,
-  providers: [],
+  providers: [
+    EmailProvider({
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: env.EMAIL_SERVER_PORT,
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.RESEND_API_KEY,
+        },
+      },
+      from: env.EMAIL_FROM,
+      sendVerificationRequest: async ({ identifier, url }) => {
+        try {
+          const { canSignIn } = await api.validEmails.checkEmail.query({
+            email: identifier,
+          });
+
+          if (!canSignIn) {
+            throw new Error("No se permite el acceso a este email");
+          }
+
+          await resend.emails.send({
+            from: `blancayfernando.com <${env.EMAIL_FROM}>`,
+            to: [identifier],
+            subject: `Admin login en la web de la boda de Blanca y Fernando`,
+            react: SignIn({ url, to: identifier }),
+            headers: {
+              "X-Entity-Ref-ID": new Date().getTime() + "",
+            },
+          });
+        } catch (error) {
+          console.error(error);
+          return Promise.reject(new Error((error as Error).message));
+        }
+      },
+    }),
+  ],
+  pages: {
+    signIn: "/acceder",
+  },
 };
 
 /**

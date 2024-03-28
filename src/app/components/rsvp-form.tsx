@@ -77,11 +77,18 @@ export default function RsvpForm() {
             Añadir acompañante
           </Button>
           <Button
-            type="submit"
-            disabled={isDisabled}
             className="flex w-full gap-3"
+            disabled={isDisabled}
+            type="submit"
           >
-            {isDisabled ? <Loader2 className="animate-spin" /> : null} Enviar
+            {isDisabled ? (
+              <>
+                <Loader2 className="animate-spin" />
+                <span>Enviando...</span>
+              </>
+            ) : (
+              <>Enviar</>
+            )}
           </Button>
         </div>
       </form>

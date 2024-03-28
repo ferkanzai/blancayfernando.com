@@ -28,6 +28,17 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
+    EMAIL_SERVER_HOST: z.string(),
+    EMAIL_SERVER_PORT: z.preprocess((str) => {
+      const port = Number(str);
+      if (isNaN(port)) {
+        throw new Error("Invalid port");
+      }
+      return port;
+    }, z.number()),
+    EMAIL_SERVER_USER: z.string(),
+    RESEND_API_KEY: z.string(),
+    EMAIL_FROM: z.string().email(),
   },
 
   /**
@@ -49,6 +60,11 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NODE_ENV: process.env.NODE_ENV,
+    EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
+    EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
+    EMAIL_SERVER_USER: process.env.EMAIL_SERVER_USER,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM,
     // Client-side env vars
     NEXT_PUBLIC_GOOGLE_MAPS_API: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
