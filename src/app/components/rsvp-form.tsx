@@ -37,7 +37,12 @@ export default function RsvpForm() {
     sendInfoToDb.mutate(values.responses);
   };
 
-  const isDisabled = sendInfoToDb.isLoading || form.formState.isSubmitting;
+  const isDisabled =
+    sendInfoToDb.isLoading ||
+    form.formState.isSubmitting ||
+    !form.formState.isValid;
+
+  const isSending = sendInfoToDb.isLoading || form.formState.isSubmitting;
 
   return (
     <Form {...form}>
@@ -81,7 +86,7 @@ export default function RsvpForm() {
             disabled={isDisabled}
             type="submit"
           >
-            {isDisabled ? (
+            {isSending ? (
               <>
                 <Loader2 className="animate-spin" />
                 <span>Enviando...</span>
