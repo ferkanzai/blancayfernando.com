@@ -1,6 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import confetti from "canvas-confetti";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { type z } from "zod";
@@ -10,9 +13,13 @@ import { Button } from "@/app/components/ui/button";
 import { Form } from "@/app/components/ui/form";
 import { formSchema } from "@/app/types/schemas/form";
 import { api } from "@/trpc/react";
-import { Loader2 } from "lucide-react";
+
+function randomInRange(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
 
 export default function RsvpForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,10 +33,20 @@ export default function RsvpForm() {
   const sendInfoToDb = api.rsvp.create.useMutation({
     onSuccess: () => {
       toast.success("Gracias por tu respuesta 🎉❤️");
+      void confetti({
+        angle: randomInRange(55, 125),
+        spread: randomInRange(50, 70),
+        particleCount: randomInRange(50, 100),
+        origin: { y: 0.6 },
+        disableForReducedMotion: true,
+      });
       form.reset();
     },
     onError: (opts) => {
       toast.error(opts.message);
+    },
+    onSettled: () => {
+      router.push("/");
     },
   });
 

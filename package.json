@@ -31,6 +31,7 @@
     "@trpc/next": "^10.43.6",
     "@trpc/react-query": "^10.43.6",
     "@trpc/server": "^10.43.6",
+    "canvas-confetti": "^1.9.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "drizzle-orm": "^0.29.3",
@@ -54,6 +55,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.6.4",
     "@types/eslint": "^8.44.7",
     "@types/google.maps": "^3.55.5",
     "@types/node": "^18.17.0",
