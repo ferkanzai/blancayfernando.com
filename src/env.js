@@ -49,6 +49,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_DOMAIN: z.string().url(),
     NEXT_PUBLIC_GOOGLE_MAPS_API: z.string(),
+    NEXT_PUBLIC_IBAN: z.string(),
   },
 
   /**
@@ -68,6 +69,7 @@ export const env = createEnv({
     // Client-side env vars
     NEXT_PUBLIC_GOOGLE_MAPS_API: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
+    NEXT_PUBLIC_IBAN: process.env.NEXT_PUBLIC_IBAN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
