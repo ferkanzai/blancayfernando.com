@@ -1,7 +1,14 @@
 export const metadata = {
   title: "Boda de Blanca y Fernando - RSVP",
-  description: "Confírmanos si vienes a nuestra boda desde esta página. ¡Gracias!",
+  description:
+    "Confírmanos si vienes a nuestra boda desde esta página. ¡Gracias!",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  openGraph: {
+    url: "/rsvp",
+    description:
+      "Confírmanos si vienes a nuestra boda desde esta página. ¡Gracias!",
+    images: ["/logo_no_date.png"],
+  },
 };
 
 export default function rsvpLayout({

@@ -5,6 +5,7 @@ import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 
 import Header from "@/app/components/header";
+import { env } from "@/env";
 import { TRPCReactProvider } from "@/trpc/react";
 
 const poppins = Poppins({
@@ -18,6 +19,13 @@ export const metadata = {
   description:
     "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  metadataBase: new URL(env.NEXTAUTH_URL),
+  openGraph: {
+    url: "/",
+    description:
+      "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
+    images: ["/logo_no_date.png"],
+  },
 };
 
 export const viewport: Viewport = {
