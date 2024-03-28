@@ -67,7 +67,7 @@ export default function RsvpSingleForm({
                 placeholder="Nombre y apellidos"
               />
             </FormControl>
-            <FormMessage className="text-red-500" />
+            <FormMessage className="text-left text-red-500" />
           </FormItem>
         )}
       />
@@ -92,7 +92,7 @@ export default function RsvpSingleForm({
                       )}
                     />
                   </FormControl>
-                  <FormLabel className="text-md font-normal">
+                  <FormLabel className="text-md text-left font-normal">
                     ¡Claro que sí!
                   </FormLabel>
                 </FormItem>
@@ -105,7 +105,7 @@ export default function RsvpSingleForm({
                       )}
                     />
                   </FormControl>
-                  <FormLabel className="text-md font-normal">
+                  <FormLabel className="text-md text-left font-normal">
                     Una pena, pero no podré ir...
                   </FormLabel>
                 </FormItem>
