@@ -14,10 +14,6 @@ import { Form } from "@/app/components/ui/form";
 import { formSchema } from "@/app/types/schemas/form";
 import { api } from "@/trpc/react";
 
-function randomInRange(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
-
 export default function RsvpForm() {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -34,11 +30,9 @@ export default function RsvpForm() {
     onSuccess: () => {
       toast.success("Gracias por tu respuesta 🎉❤️");
       void confetti({
-        angle: randomInRange(55, 125),
-        spread: randomInRange(50, 70),
-        particleCount: randomInRange(50, 100),
+        particleCount: 100,
+        spread: 70,
         origin: { y: 0.6 },
-        disableForReducedMotion: true,
       });
       form.reset();
     },
