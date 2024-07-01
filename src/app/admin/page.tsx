@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import Admin from "@/app/components/admin";
 import { getServerAuthSession } from "@/server/auth";
 
 export default async function AdminPage() {
@@ -9,5 +10,5 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  return <>{session.user.email}</>;
+  return <Admin />;
 }

@@ -49,6 +49,8 @@ export const insertFormularySchema = z
   .array(createInsertSchema(formulary))
   .max(5);
 
+export type FormularySelect = z.infer<typeof selectFormularySechma>;
+
 export const validEmails = createTable("validEmails", {
   email: varchar("email", { length: 255 }).notNull().primaryKey(),
 });

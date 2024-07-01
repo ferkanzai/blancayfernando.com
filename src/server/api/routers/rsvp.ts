@@ -2,11 +2,16 @@ import { type DrizzleError } from "drizzle-orm";
 import { ZodError, z } from "zod";
 
 import { responseSchema } from "@/app/types/schemas/form";
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "@/server/api/trpc";
 import {
   formulary,
   insertFormularySchema,
   insertSingleFormularySchema,
+  selectAllFormularySchema,
 } from "@/server/db/schema";
 import { TRPCError } from "@trpc/server";
 
@@ -94,4 +99,17 @@ export const rsvpRouter = createTRPCRouter({
         });
       }
     }),
+  getData: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const rows = await ctx.db.select().from(formulary);
+
+      return selectAllFormularySchema.parse(rows);
+    } catch (error) {
+      console.error(
+        ">>>> Error querying form data",
+        (error as ZodError | DrizzleError).message,
+      );
+      return [];
+    }
+  }),
 });

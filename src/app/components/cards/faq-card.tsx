@@ -1,4 +1,3 @@
-import { PartyPopper } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -8,21 +7,21 @@ import {
   CardTitle,
 } from "@/app/components/ui/card";
 
-export default function RsvpCard() {
+export default function FaqCard() {
   return (
-    <Link href="/rsvp">
+    <Link href="/informacion">
       <Card className="group w-full max-w-[450px] cursor-pointer bg-transparent hover:-translate-y-2 hover:shadow-md hover:shadow-accent">
         <CardHeader>
-          <CardTitle className="flex items-center justify-center gap-4">
+          <CardTitle className="flex items-center justify-evenly gap-2">
             <span className="sm:group-hover:text-secondary">
-              ¡Confirma tu asistencia!
+              ¿Tienes alguna duda?
             </span>
-            <PartyPopper className="h-8 min-h-8 w-8 min-w-8 sm:group-hover:stroke-secondary" />
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Ayúdanos a planificar mejor diciéndonos si vienes o no</p>
-          <p className="text-lg">¡Te esperamos!</p>
+          <p>
+            ¡Aquí podrás encontrar toda la información necesaria y resolverlas!
+          </p>
         </CardContent>
       </Card>
     </Link>
