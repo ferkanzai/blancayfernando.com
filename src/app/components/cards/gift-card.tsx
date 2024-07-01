@@ -39,17 +39,18 @@ export default function GiftCard() {
               src="/new_zealand_square.webp"
               width={250}
             />
-            <div className="flex h-full flex-col gap-8 pt-4">
+            <div className="flex h-full flex-col justify-evenly gap-3 pb-9 pt-5">
               <span className="text-center md:text-left">
                 Pero si además queréis ayudarnos en nuestra vida futura y
                 nuestra luna de miel, podéis hacerlo aquí:
               </span>
               <CopyText
-                className="flex justify-center gap-6 text-lg md:justify-end md:text-xl"
+                className="flex justify-center gap-3 text-lg md:justify-end md:text-xl"
                 isEmail={false}
                 showText
                 text="ES94 0182 5322 2202 0055 4390"
               />
+              <span className="text-center md:text-left">¡Muchas gracias!</span>
             </div>
           </DialogDescription>
         </DialogHeader>
