@@ -22,7 +22,6 @@ export default function RsvpCard() {
         </CardHeader>
         <CardContent>
           <p>Ayúdanos a planificar mejor diciéndonos si vienes o no</p>
-          <p className="text-lg">¡Te esperamos!</p>
         </CardContent>
       </Card>
     </Link>

@@ -1,3 +1,4 @@
+import GiftCard from "@/app/components/cards/gift-card";
 import RsvpCard from "@/app/components/cards/rsvp-card";
 
 export default function NotFound() {
@@ -9,6 +10,7 @@ export default function NotFound() {
       <div className="flex flex-col gap-3">
         <h2 className="text-2xl">Quizá querrías...</h2>
         <RsvpCard />
+        <GiftCard />
       </div>
     </main>
   );
