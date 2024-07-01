@@ -1,6 +1,5 @@
 import { Info, InstagramIcon } from "lucide-react";
 
-import { CopyText } from "@/app/components/copy-text";
 import { CustomLink } from "@/app/components/custom-link";
 import {
   Accordion,
@@ -102,22 +101,6 @@ const InfoData = () => {
               y etiquetar todo lo que subas. Toda la información que necesites
               la iremos publicando en esa cuenta.
             </p>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="gift">
-          <AccordionTrigger>Regalos</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-1">
-            <p>
-              Vuestra presencia será el mejor regalo, pero si además queréis
-              ayudarnos, podéis hacerlo aquí:
-            </p>
-            <CopyText
-              text="ES47 0073 0100 5407 5139 3332"
-              showText
-              isEmail={false}
-            />
-            <p>¡Muchas gracias!</p>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
