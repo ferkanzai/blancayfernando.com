@@ -25,21 +25,21 @@ export default function GiftCard() {
           </CardHeader>
         </Card>
       </DialogTrigger>
-      <DialogContent className="md:max-w-[750px]">
+      <DialogContent className="md:max-w-[900px]">
         <DialogHeader>
-          <DialogTitle className="pb-6 text-center text-xl md:text-2xl">
+          <DialogTitle className="pb-6 text-xl md:pb-0 md:text-2xl">
             Compartir con vosotros este día tan especial es el mejor de los
             regalos
           </DialogTitle>
           <DialogDescription className="flex flex-col items-center gap-2 text-lg md:flex-row md:items-start md:gap-8">
             <Image
               alt="New Zealand"
-              className="inline-block max-h-[250px] max-w-[250px] rounded-[50px]"
+              className="inline-block max-h-[250px] max-w-[250px] rounded-full"
               height={250}
               src="/new_zealand_square.webp"
               width={250}
             />
-            <div className="flex h-full flex-col justify-evenly gap-10">
+            <div className="flex h-full flex-col gap-8 pt-4">
               <span className="text-center md:text-left">
                 Pero si además queréis ayudarnos en nuestra vida futura y
                 nuestra luna de miel, podéis hacerlo aquí:
