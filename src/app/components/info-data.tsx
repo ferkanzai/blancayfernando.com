@@ -17,8 +17,8 @@ const InfoData = () => {
       <Accordion type="single" collapsible className="w-11/12 md:max-w-[700px]">
         <AccordionItem value="timetable">
           <AccordionTrigger>Horarios</AccordionTrigger>
-          <AccordionContent className="flex flex-col items-start gap-1">
-            <p>
+          <AccordionContent className="flex flex-col gap-1">
+            <p className="text-left">
               <span className="text-[16px] font-bold tabular-nums text-primary">
                 13:00 h
               </span>{" "}
@@ -28,7 +28,7 @@ const InfoData = () => {
                 Real Basílica Nuestra Señora de Atocha
               </CustomLink>
             </p>
-            <p>
+            <p className="text-left">
               <span className="text-[16px] font-bold tabular-nums text-primary">
                 14:30 h
               </span>{" "}
@@ -43,7 +43,7 @@ const InfoData = () => {
               </CustomLink>
               )
             </p>
-            <p>
+            <p className="text-left">
               <span className="text-[16px] font-bold tabular-nums text-primary">
                 00:30 h
               </span>{" "}
