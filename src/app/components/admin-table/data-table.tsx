@@ -49,7 +49,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
     columns,
     data: data ?? [],
     getCoreRowModel: getCoreRowModel(),
-    // @ts-expect-error
+    // @ts-expect-error - TODO: fix typings
     getSubRows: (row) => row.associated,
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
