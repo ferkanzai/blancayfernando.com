@@ -1,19 +1,21 @@
-import { type DrizzleError } from "drizzle-orm";
+import { NeonDbError } from "@neondatabase/serverless";
+import { sql, type DrizzleError } from "drizzle-orm";
 import { ZodError, z } from "zod";
 
 import { responseSchema } from "@/app/types/schemas/form";
 import {
   createTRPCRouter,
-  publicProcedure,
   protectedProcedure,
+  publicProcedure,
 } from "@/server/api/trpc";
 import {
   formulary,
   insertFormularySchema,
   insertSingleFormularySchema,
-  selectAllFormularySchema,
+  selectAllFormularySchemaWithAssociated,
 } from "@/server/db/schema";
 import { TRPCError } from "@trpc/server";
+import { createInsertSchema } from "drizzle-zod";
 
 const literalFields = {
   allergies: "Alergias o intoleracias",
@@ -101,13 +103,72 @@ export const rsvpRouter = createTRPCRouter({
     }),
   getData: protectedProcedure.query(async ({ ctx }) => {
     try {
-      const rows = await ctx.db.select().from(formulary);
+      const query = sql`
+        WITH RECURSIVE nested_formulary AS (
+          SELECT 
+            id::INTEGER,
+            name::TEXT,
+            allergies::TEXT,
+            "associatedTo"::INTEGER,
+            coming::BOOLEAN,
+            "createdAt"::TIMESTAMP,
+            jsonb '[]' AS associated
+          FROM 
+            ${formulary}
+          WHERE 
+            "associatedTo" IS NULL
+        
+          UNION ALL
+        
+          SELECT 
+            f.id::INTEGER,
+            f.name::TEXT,
+            f.allergies::TEXT,
+            f."associatedTo"::INTEGER,
+            f.coming::BOOLEAN,
+            f."createdAt"::TIMESTAMP,
+            jsonb '[]' AS associated
+          FROM 
+            ${formulary} f
+          JOIN 
+            nested_formulary nf ON f."associatedTo" = nf.id
+        )
+        SELECT 
+          nf1.id,
+          nf1.name,
+          nf1.allergies,
+          nf1."associatedTo",
+          nf1.coming,
+          nf1."createdAt",
+          COALESCE(jsonb_agg(
+            jsonb_build_object(
+              'id', nf2.id,
+              'name', nf2.name,
+              'allergies', nf2.allergies,
+              'associatedTo', nf2."associatedTo",
+              'coming', nf2.coming,
+              'createdAt', nf2."createdAt"
+            )
+          ) FILTER (WHERE nf2.id IS NOT NULL), '[]') AS associated
+        FROM 
+          nested_formulary nf1
+        LEFT JOIN 
+          nested_formulary nf2 ON nf1.id = nf2."associatedTo"
+        WHERE 
+          nf1."associatedTo" IS NULL
+        GROUP BY 
+          nf1.id, nf1.name, nf1.allergies, nf1."associatedTo", nf1.coming, nf1."createdAt"
+        ORDER BY 
+          nf1.id;
+      `;
 
-      return selectAllFormularySchema.parse(rows);
+      const { rows } = await ctx.db.execute(query);
+
+      return selectAllFormularySchemaWithAssociated.parse(rows);
     } catch (error) {
       console.error(
         ">>>> Error querying form data",
-        (error as ZodError | DrizzleError).message,
+        (error as ZodError | DrizzleError | NeonDbError).message,
       );
       return [];
     }

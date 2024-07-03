@@ -28,7 +28,7 @@ export const formulary = createTable("formulary", {
   allergies: varchar("allergies", { length: 255 }),
   associatedTo: integer("associatedTo"),
   coming: boolean("coming").notNull(),
-  createdAt: timestamp("createdAt", { mode: "date" })
+  createdAt: timestamp("createdAt", { mode: "string" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   id: serial("id").notNull().primaryKey(),
@@ -42,14 +42,25 @@ export const formularyRelations = relations(formulary, ({ one }) => ({
   }),
 }));
 
-export const selectFormularySechma = createSelectSchema(formulary);
-export const selectAllFormularySchema = z.array(selectFormularySechma);
+export const selectFormularySchema = createSelectSchema(formulary);
+export const selectAllFormularySchema = z.array(selectFormularySchema);
+export const selectFormularySchemaWithAssociated = selectFormularySchema.extend(
+  {
+    associated: z.array(selectFormularySchema),
+    createdAt: z.string(),
+  },
+);
+export const selectAllFormularySchemaWithAssociated = z.array(
+  selectFormularySchemaWithAssociated,
+);
 export const insertSingleFormularySchema = createInsertSchema(formulary);
 export const insertFormularySchema = z
   .array(createInsertSchema(formulary))
   .max(5);
 
-export type FormularySelect = z.infer<typeof selectFormularySechma>;
+export type FormularySelect = z.infer<
+  typeof selectFormularySchemaWithAssociated
+>;
 
 export const validEmails = createTable("validEmails", {
   email: varchar("email", { length: 255 }).notNull().primaryKey(),

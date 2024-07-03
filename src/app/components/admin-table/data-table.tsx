@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  ExpandedState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -34,25 +36,34 @@ export function DataTable<TData extends FormularySelect, TValue>({
   columns,
   data,
   isLoading = false,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<
+  TData extends FormularySelect ? FormularySelect : TData,
+  TValue
+>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const table = useReactTable({
     columns,
     data: data ?? [],
     getCoreRowModel: getCoreRowModel(),
+    // @ts-ignore
+    getSubRows: (row) => row.associated,
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
+    onExpandedChange: setExpanded,
     state: {
       columnFilters,
       rowSelection,
       sorting,
+      expanded,
     },
   });
 
