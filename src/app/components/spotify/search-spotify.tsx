@@ -50,9 +50,10 @@ export default function SearchSpotify({
       <p className="text-left">
         1. Accede a tu cuenta de Spotify con el botón de abajo
         <br />
-        2. Busca una canción en la lista de arriba
+        2. Busca una canción
         <br />
-        3. Haz click en el botón de abajo para añadir la canción a la playlist
+        3. Haz click en el botón + al lado de la canción para añadirla a la
+        playlist
       </p>
       {session && userProvider?.provider === "spotify" ? (
         <>
