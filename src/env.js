@@ -28,6 +28,18 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
+    EMAIL_SERVER_HOST: z.string(),
+    EMAIL_SERVER_PORT: z.preprocess((str) => {
+      const port = Number(str);
+      if (isNaN(port)) {
+        throw new Error("Invalid port");
+      }
+      return port;
+    }, z.number()),
+    EMAIL_SERVER_USER: z.string(),
+    RESEND_API_KEY: z.string(),
+    EMAIL_FROM: z.string().email(),
+    DOPPLER_CONFIG: z.enum(["dev_local", "dev", "prd"]),
   },
 
   /**
@@ -36,7 +48,9 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_DOMAIN: z.string().url(),
+    NEXT_PUBLIC_GOOGLE_MAPS_API: z.string(),
+    NEXT_PUBLIC_IBAN: z.string(),
   },
 
   /**
@@ -45,9 +59,19 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
-    NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NODE_ENV: process.env.NODE_ENV,
+    EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
+    EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
+    EMAIL_SERVER_USER: process.env.EMAIL_SERVER_USER,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    DOPPLER_CONFIG: process.env.DOPPLER_CONFIG,
+    // Client-side env vars
+    NEXT_PUBLIC_GOOGLE_MAPS_API: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API,
+    NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
+    NEXT_PUBLIC_IBAN: process.env.NEXT_PUBLIC_IBAN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

@@ -1,0 +1,13 @@
+import FaqCard from "@/app/components/cards/faq-card";
+import GiftCard from "@/app/components/cards/gift-card";
+import RsvpCard from "@/app/components/cards/rsvp-card";
+
+export default function MainCards() {
+  return (
+    <div className="flex flex-col gap-5 pb-16 md:flex-row md:flex-wrap md:items-stretch md:justify-center">
+      <RsvpCard />
+      <FaqCard />
+      <GiftCard />
+    </div>
+  );
+}

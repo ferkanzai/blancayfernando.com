@@ -3,3 +3,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-shadow-color: transparent;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  .no-scrollbar:hover {
+    scrollbar-shadow-color: transparent;
+    scrollbar-width: thin;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  .no-scrollbar:hover::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .no-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background-color: gray;
+    border-radius: 8px;
+    border: 5px solid transparent;
+  }
+
+  @media screen and (max-width: 768px) {
+    .no-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .no-scrollbar::-webkit-scrollbar-thumb {
+      background-clip: padding-box;
+      background-color: gray;
+      border-radius: 8px;
+      border: 5px solid transparent;
+    }
+  }
+
+  .safe-align {
+    align-self: safe center;
+  }
+
+  .safe-justify {
+    justify-content: safe center;
+  }
+
+  .gradient-borders {
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      #fefae0 3%,
+      #fefae0 97%,
+      transparent
+    );
+  }
+}
