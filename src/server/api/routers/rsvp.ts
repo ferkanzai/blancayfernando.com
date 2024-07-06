@@ -15,7 +15,6 @@ import {
   selectAllFormularySchemaWithAssociated,
 } from "@/server/db/schema";
 import { TRPCError } from "@trpc/server";
-import { createInsertSchema } from "drizzle-zod";
 
 const literalFields = {
   allergies: "Alergias o intoleracias",
@@ -163,14 +162,21 @@ export const rsvpRouter = createTRPCRouter({
       `;
 
       const { rows } = await ctx.db.execute(query);
+      const all = await ctx.db.select().from(formulary);
 
-      return selectAllFormularySchemaWithAssociated.parse(rows);
+      return {
+        withAssociated: selectAllFormularySchemaWithAssociated.parse(rows),
+        all,
+      };
     } catch (error) {
       console.error(
         ">>>> Error querying form data",
         (error as ZodError | DrizzleError | NeonDbError).message,
       );
-      return [];
+      return {
+        withAssociated: [],
+        all: [],
+      };
     }
   }),
 });
