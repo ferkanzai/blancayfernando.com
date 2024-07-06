@@ -102,7 +102,7 @@ export const columns: ColumnDef<FormularySelect>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Asiste
+          Asistencia
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -120,7 +120,7 @@ export const columns: ColumnDef<FormularySelect>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Allergies
+          Alergias
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );
