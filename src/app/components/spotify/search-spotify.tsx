@@ -36,9 +36,7 @@ export default function SearchSpotify({
     },
   );
   const { mutate: addToPlaylist } = api.spotify.addToPlaylist.useMutation({
-    onSettled: () => {
-      utils.spotify.invalidate();
-    },
+    onSettled: () => utils.spotify.invalidate(),
   });
 
   const handleAddToPlaylist = (item: SpotifyTrack) => {
