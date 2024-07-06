@@ -14,10 +14,20 @@ const InfoData = () => {
   return (
     <>
       <h3 className="text-primar text-xl font-bold">Información</h3>
-      <Accordion type="single" collapsible className="w-11/12 md:max-w-[700px]">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-11/12 pb-16 md:max-w-[700px]"
+      >
         <AccordionItem value="timetable">
           <AccordionTrigger>Horarios</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1">
+            <p className="text-left">
+              <span className="text-[16px] font-bold tabular-nums text-primary">
+                12:30 h
+              </span>{" "}
+              Llegada de invitados
+            </p>
             <p className="text-left">
               <span className="text-[16px] font-bold tabular-nums text-primary">
                 13:00 h
