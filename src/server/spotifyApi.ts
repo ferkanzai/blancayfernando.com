@@ -66,7 +66,7 @@ export type SpotifyTrack = {
   is_playable: boolean;
   name: string;
   popularity: number;
-  preview_url: any;
+  preview_url: string;
   track_number: number;
   type: string;
   uri: string;
