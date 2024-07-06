@@ -6,9 +6,18 @@ import {
   ChevronRightIcon,
 } from "@radix-ui/react-icons";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
 
+import { DeleteRowButton } from "@/app/components/admin-table/delete-row-button";
 import { Button } from "@/app/components/ui/button";
 import { Checkbox } from "@/app/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/app/components/ui/dropdown-menu";
 import { type FormularySelect } from "@/server/db/schema";
 
 const columnHelper = createColumnHelper<FormularySelect>();
@@ -114,6 +123,29 @@ export const columns: ColumnDef<FormularySelect>[] = [
           Allergies
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+  },
+  {
+    id: "remove",
+    cell: ({ row }) => {
+      const { id } = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Abrir menú</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+            <DropdownMenuItem>
+              <DeleteRowButton id={id} />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },

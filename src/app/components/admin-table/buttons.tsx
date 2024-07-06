@@ -1,12 +1,12 @@
 "use client";
 
 import type { Row, Table } from "@tanstack/react-table";
-// import { download, generateCsv, mkConfig } from "export-to-csv";
+import { download, generateCsv, mkConfig } from "export-to-csv";
 import { toast } from "sonner";
 
+import { Button } from "@/app/components/ui/button";
 import { FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
-import { Button } from "../ui/button";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -16,16 +16,17 @@ export function TableButtons<TData extends FormularySelect>({
   table,
 }: Props<TData>) {
   const utils = api.useUtils();
-  // const { mutate: deleteRows } = api.formulary.deleteFormularyData.useMutation({
-  //   onSettled: () => utils.formulary.invalidate(),
-  //   onSuccess: (data) => {
-  //     toast.success(
-  //       `${data} fila${data !== 1 ? "s" : ""} eliminada${
-  //         data !== 1 ? "s" : ""
-  //       } correctamente`,
-  //     );
-  //   },
-  // });
+
+  const { mutate: deleteRows } = api.rsvp.deleteFormularyData.useMutation({
+    onSettled: () => utils.rsvp.invalidate(),
+    onSuccess: (data) => {
+      toast.success(
+        `${data} fila${data !== 1 ? "s" : ""} eliminada${
+          data !== 1 ? "s" : ""
+        } correctamente`,
+      );
+    },
+  });
   // const { mutate: updateSheet, isLoading: isUpdatingSheet } =
   //   api.spreadsheet.addDataToSheet.useMutation({
   //     onSettled: () => utils.spreadsheet.getSheet.invalidate(),
@@ -42,75 +43,59 @@ export function TableButtons<TData extends FormularySelect>({
   //   api.spreadsheet.getSheetConfiguration.useQuery();
 
   const selectedRows = table.getFilteredSelectedRowModel().flatRows;
-  const totalRows = selectedRows.length || table.getCoreRowModel().rows?.length;
+  const totalRows =
+    selectedRows.length || table.getExpandedRowModel().flatRows?.length;
 
-  // const csvConfig = mkConfig({
-  //   fieldSeparator: ",",
-  //   decimalSeparator: ".",
-  //   filename: `listaInvitados-${new Date().getFullYear()}-${(
-  //     new Date().getMonth() + 1
-  //   )
-  //     .toString()
-  //     .padStart(2, "0")}-${new Date().getDate()}`,
-  //   columnHeaders: [
-  //     {
-  //       key: "name",
-  //       displayLabel: "Nombre",
-  //     },
-  //     {
-  //       key: "busGoing",
-  //       displayLabel: "Bus ida",
-  //     },
-  //     {
-  //       key: "busGoingDirection",
-  //       displayLabel: "Dirección bus ida",
-  //     },
-  //     {
-  //       key: "busReturn",
-  //       displayLabel: "Bus vuelta",
-  //     },
-  //     {
-  //       key: "busReturnTime",
-  //       displayLabel: "Hora bus vuelta",
-  //     },
-  //     {
-  //       key: "busReturnDirection",
-  //       displayLabel: "Dirección bus vuelta",
-  //     },
-  //     {
-  //       key: "menu",
-  //       displayLabel: "Menú",
-  //     },
-  //     {
-  //       key: "allergies",
-  //       displayLabel: "Alergias",
-  //     },
-  //   ],
-  // });
+  const csvConfig = mkConfig({
+    fieldSeparator: ",",
+    decimalSeparator: ".",
+    filename: `listaInvitados-${new Date().getFullYear()}-${(
+      new Date().getMonth() + 1
+    )
+      .toString()
+      .padStart(
+        2,
+        "0",
+      )}-${new Date().getDate()}-${new Date().getHours().toString().padStart(2, "0")}${new Date().getMinutes().toString().padStart(2, "0")}${new Date().getSeconds().toString().padStart(2, "0")}`,
+    columnHeaders: [
+      {
+        key: "id",
+        displayLabel: "ID",
+      },
+      {
+        key: "name",
+        displayLabel: "Nombre",
+      },
+      {
+        key: "coming",
+        displayLabel: "Asistencia",
+      },
+      {
+        key: "allergies",
+        displayLabel: "Alergias",
+      },
+    ],
+  });
 
-  // const formatRow = ({ original }: Row<TData>) => {
-  //   return {
-  //     id: original.id,
-  //     busGoing: original.going ? "✅" : "❌",
-  //     busReturn: original.busReturn ? "✅" : "❌",
-  //     busGoingDirection: returnText(original.busGoingDirection, true),
-  //     busReturnDirection: returnText(original.busReturnDirection),
-  //     busReturnTime: returnText(original.busReturnTime),
-  //     menu: `${menuIcon[original.menu]} ${original.menu}`,
-  //     allergies: original.allergies ?? "",
-  //     name: original.name ?? "",
-  //   };
-  // };
+  const formatRow = ({ original }: Row<TData>) => {
+    return {
+      id: original.id,
+      coming: original.coming ? "✅" : "❌",
+      allergies: original.allergies ?? "",
+      name: original.name ?? "",
+    };
+  };
 
-  // const handleExportData = () => {
-  //   const rows = selectedRows.length
-  //     ? selectedRows
-  //     : table.getCoreRowModel().rows;
-  //   const data = rows.map(formatRow);
+  const handleExportData = () => {
+    const rows = selectedRows.length
+      ? selectedRows
+      : table.getExpandedRowModel().flatRows;
+    const data = rows.map(formatRow);
 
-  //   const csv = generateCsv(csvConfig)(data);
-  //   download(csvConfig)(csv);
-  // };
+    const csv = generateCsv(csvConfig)(data);
+    download(csvConfig)(csv);
+    table.resetRowSelection();
+  };
 
   // const saveToSheet = () => {
   //   const rows = table.getCoreRowModel().rows.map(formatRow);
@@ -120,11 +105,11 @@ export function TableButtons<TData extends FormularySelect>({
 
   return (
     <div className="flex flex-col items-center justify-between gap-2 space-x-2 py-4 sm:flex-row sm:gap-0">
-      {/* <div className="flex flex-col gap-2 md:flex-row">
+      <div className="flex flex-col gap-2 md:flex-row">
         <Button className="tabular-nums" onClick={handleExportData} size="sm">
           Descargar CSV ({totalRows} fila{totalRows !== 1 ? "s" : ""})
         </Button>
-        <div className="flex items-center gap-1">
+        {/* <div className="flex items-center gap-1">
           <Button
             className="tabular-nums"
             disabled={isUpdatingSheet || !sheetConfiguration?.value}
@@ -134,7 +119,7 @@ export function TableButtons<TData extends FormularySelect>({
             Actualizar datos en Spreadsheet
           </Button>
           <SheetsConfig />
-        </div>
+        </div> */}
         <Button
           disabled={selectedRows.length === 0}
           onClick={() => {
@@ -145,13 +130,14 @@ export function TableButtons<TData extends FormularySelect>({
               ) as unknown as number[];
 
             deleteRows(selectedRowsIds);
+            table.resetRowSelection();
           }}
           size="sm"
           variant="destructive"
         >
           Eliminar filas
         </Button>
-      </div> */}
+      </div>
       <div className="flex gap-2">
         <Button
           disabled={!table.getCanPreviousPage()}
