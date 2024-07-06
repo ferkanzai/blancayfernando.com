@@ -11,8 +11,8 @@ export default function Admin() {
 
   const loading = isFetching || isLoading || isRefetching;
 
-  const going = data?.filter((row) => row.coming).length ?? 0;
-  const count = data?.length ?? 0;
+  const going = data?.all?.filter((row) => row.coming).length ?? 0;
+  const count = data?.all?.length ?? 0;
 
   const stats = {
     count,
@@ -24,7 +24,11 @@ export default function Admin() {
     <>
       <Stats stats={stats} isLoading={loading} />
       <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
-      <DataTable columns={columns} data={data} isLoading={loading} />
+      <DataTable
+        columns={columns}
+        data={data?.withAssociated}
+        isLoading={loading}
+      />
     </>
   );
 }

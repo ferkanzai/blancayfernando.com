@@ -37,15 +37,14 @@ export default function RsvpForm() {
           spread: 70,
           origin: { y: 0.6 },
         });
+
+        return router.push("/gracias");
       }
 
-      form.reset();
+      return router.push("/una-pena");
     },
     onError: (opts) => {
       toast.error(opts.message);
-    },
-    onSettled: () => {
-      router.push("/gracias");
     },
   });
 
@@ -90,11 +89,7 @@ export default function RsvpForm() {
                 toast.error("El máximo de invitados por envío es de 5");
                 return;
               }
-              append({
-                name: "",
-                allergies: "",
-                coming: "" as "yes" | "no",
-              });
+              append({ name: "", allergies: "", coming: "" as "yes" | "no" });
             }}
             className="w-full"
             disabled={fields.length >= 5}

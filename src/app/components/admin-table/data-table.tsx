@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 
 import { TableButtons } from "@/app/components/admin-table/buttons";
+import { TableFilters } from "@/app/components/admin-table/table-filters";
 import {
   Table,
   TableBody,
@@ -69,7 +70,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
 
   return (
     <div className="w-full max-w-[1500px] overflow-x-auto">
-      {/* <TableFilters table={table} /> */}
+      <TableFilters table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
