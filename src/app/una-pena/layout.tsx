@@ -4,7 +4,7 @@ export const metadata = {
     "Una pena no poder contar contigo en este día, si cambias de opinión, ¡no dudes en decírnoslo!",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
-    url: "/gracias",
+    url: "/una-pena",
     description:
       "Una pena no poder contar contigo en este día, si cambias de opinión, ¡no dudes en decírnoslo!",
     images: ["/logo_no_date.png"],
