@@ -125,7 +125,10 @@ export const addItemToPlaylist = async (id: string, token: string) => {
     },
   );
 
-  return response.json();
+  return response.json() as Promise<{
+    snapshot_id?: string;
+    error?: { status?: number };
+  }>;
 };
 
 export const login = async () => {
