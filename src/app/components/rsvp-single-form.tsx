@@ -106,7 +106,7 @@ export default function RsvpSingleForm({
                     />
                   </FormControl>
                   <FormLabel className="text-md text-left font-normal">
-                    Una pena, pero no podré ir...
+                    Ya lo siento, pero no podré ir...
                   </FormLabel>
                 </FormItem>
               </RadioGroup>
