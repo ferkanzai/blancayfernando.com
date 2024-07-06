@@ -68,7 +68,7 @@ export const columns: ColumnDef<FormularySelect>[] = [
           paddingLeft: `${row.depth * 2}rem`,
         }}
       >
-        <div>
+        <div className="flex items-center gap-2">
           {row.getCanExpand() ? (
             <button
               {...{

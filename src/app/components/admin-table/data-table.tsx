@@ -103,7 +103,6 @@ export function DataTable<TData extends FormularySelect, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
                       align={(cell.column.columnDef.meta as any)?.align}
                     >
                       {flexRender(
