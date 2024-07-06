@@ -1,4 +1,5 @@
 import SearchSpotify from "@/app/components/spotify/search-spotify";
+import { env } from "@/env";
 import { getServerAuthSession } from "@/server/auth";
 
 export default async function musicPage() {
@@ -15,7 +16,7 @@ export default async function musicPage() {
       <div className="w-full md:max-w-2xl">
         <iframe
           style={{ borderRadius: "12px" }}
-          src="https://open.spotify.com/embed/playlist/7gAoZBejGkkvdz14ossFBr"
+          src={`https://open.spotify.com/embed/playlist/${env.SPOTIFY_PLAYLIST_ID}`}
           width="100%"
           height="352"
           frameBorder="0"

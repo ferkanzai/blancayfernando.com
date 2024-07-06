@@ -4,6 +4,7 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";
 import { Session } from "next-auth";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { LogoutButton } from "@/app/components/logout-button";
@@ -85,9 +86,29 @@ export default function SearchSpotify({
             <img
               src={item?.album?.images?.[0]?.url}
               alt={item.name}
-              className="h-20 w-20 rounded-md"
+              className="h-20 w-20"
             />
-            <span className="text-left">{item.name}</span>
+            <div className="flex flex-col items-start justify-start gap-1">
+              <Link href={item.external_urls.spotify}>
+                <span className="text-left hover:underline">{item.name}</span>
+              </Link>
+              <div className="flex gap-2 text-sm">
+                {item.artists.map((artist) => (
+                  <Link
+                    className="hover:underline"
+                    href={artist.external_urls.spotify}
+                    key={artist.id}
+                  >
+                    {artist.name}
+                  </Link>
+                ))}
+              </div>
+              <Link href={item.album.external_urls.spotify}>
+                <span className="text-xs hover:underline">
+                  {item.album.name}
+                </span>
+              </Link>
+            </div>
           </div>
           <Button
             type="button"
