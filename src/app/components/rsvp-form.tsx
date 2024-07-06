@@ -39,13 +39,10 @@ export default function RsvpForm() {
         });
       }
 
-      form.reset();
+      router.push("/gracias");
     },
     onError: (opts) => {
       toast.error(opts.message);
-    },
-    onSettled: () => {
-      router.push("/gracias");
     },
   });
 
