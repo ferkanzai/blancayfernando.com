@@ -10,7 +10,7 @@ import { LogoutButton } from "@/app/components/logout-button";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { useDebounce } from "@/app/hooks/useDebounce";
-import { SpotifyTrack } from "@/server/spotifyApi";
+import { SpotifySearchResponse, SpotifyTrack } from "@/server/spotifyApi";
 import { api } from "@/trpc/react";
 
 export default function SearchSpotify({
@@ -24,12 +24,12 @@ export default function SearchSpotify({
   const utils = api.useUtils();
 
   const { data: userProvider } = api.validEmails.checkProvider.useQuery({
-    userId: session?.user.id,
+    userId: session?.user?.id,
   });
   const { data, isLoading, isFetching } = api.spotify.searchItems.useQuery(
     {
       query: searchDebounced,
-      userId: session?.user.id,
+      userId: session?.user?.id,
     },
     {
       enabled: Boolean(searchDebounced),
@@ -40,7 +40,7 @@ export default function SearchSpotify({
   });
 
   const handleAddToPlaylist = (item: SpotifyTrack) => {
-    addToPlaylist({ id: item.id, userId: session?.user.id });
+    addToPlaylist({ id: item.id, userId: session?.user?.id });
     setSearch("");
   };
 
@@ -78,7 +78,7 @@ export default function SearchSpotify({
         </Button>
       )}
 
-      {data?.tracks?.items.map((item) => (
+      {(data as SpotifySearchResponse)?.tracks?.items.map((item) => (
         <div key={item.id} className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <img

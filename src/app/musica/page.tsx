@@ -4,6 +4,8 @@ import { getServerAuthSession } from "@/server/auth";
 export default async function musicPage() {
   const session = await getServerAuthSession();
 
+  console.log(session);
+
   return (
     <>
       <h1 className="font-maginia text-3xl font-bold text-primary">

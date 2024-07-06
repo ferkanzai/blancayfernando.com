@@ -4,12 +4,6 @@ const client_id = env.SPOTIFY_CLIENT_ID;
 const client_secret = env.SPOTIFY_CLIENT_SECRET;
 const playlist_id = env.SPOTIFY_PLAYLIST_ID;
 
-type SpotifyTokens = {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-};
-
 export type SpotifyTrack = {
   album: {
     album_type: string;
@@ -72,32 +66,18 @@ export type SpotifyTrack = {
   uri: string;
 };
 
-type SpotifySearchResponse = {
+export type SpotifySearchResponse = {
   tracks: {
     items: SpotifyTrack[];
   };
 };
 
-export const getTokens = async () => {
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    body: new URLSearchParams({
-      grant_type: "client_credentials",
-    }),
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic " +
-        Buffer.from(client_id + ":" + client_secret).toString("base64"),
-    },
-  });
-
-  const data = (await response.json()) as SpotifyTokens;
-
-  return data;
-};
-
-export const searchItems = async (query: string, token: string) => {
+export const searchItems = async (
+  query: string,
+  token: string,
+): Promise<
+  SpotifySearchResponse | { error: { status: number; message: string } }
+> => {
   const response = await fetch(
     "https://api.spotify.com/v1/search?q=" + query + "&type=track&market=ES",
     {
@@ -108,7 +88,7 @@ export const searchItems = async (query: string, token: string) => {
     },
   );
 
-  return response.json() as Promise<SpotifySearchResponse>;
+  return response.json();
 };
 
 export const addItemToPlaylist = async (id: string, token: string) => {
@@ -131,46 +111,54 @@ export const addItemToPlaylist = async (id: string, token: string) => {
   }>;
 };
 
-export const login = async () => {
-  const generateRandomString = () =>
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+export const refreshAccessToken = async (token: {
+  access_token: string | null;
+  refresh_token: string | null;
+  expires_at: number | null;
+  token_type: string | null;
+}): Promise<{
+  access_token: string | null;
+  refresh_token: string | null;
+  expires_at: number | null;
+  token_type: string | null;
+  error?: string;
+}> => {
+  try {
+    if (!token.refresh_token) {
+      return {
+        ...token,
+        error: "RefreshAccessTokenError",
+      };
+    }
 
-  const state = generateRandomString();
+    const basicAuth = Buffer.from(`${client_id}:${client_secret}`).toString(
+      "base64",
+    );
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${basicAuth}`,
+      },
+      body: new URLSearchParams({
+        refresh_token: token.refresh_token,
+        grant_type: "refresh_token",
+      }),
+    });
 
-  const response = await fetch("https://accounts.spotify.com/authorize", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      client_id,
-      response_type: "code",
-      redirect_uri: "http://localhost:3000/api/spotify/callback",
-      scope: "playlist-modify-public",
-      state,
-    }),
-  });
+    const data = (await response.json()) as {
+      access_token: string;
+      expires_at: number;
+      scope: string;
+      refresh_token: string;
+      token_type: string;
+    };
 
-  return response.json();
+    return data;
+  } catch (error) {
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
 };
-
-// export const getTokenByRefresh = async (refresh: string) => {
-//   const response = await fetch(
-//     "https://bankaccountdata.gocardless.com/api/v2/token/refresh/",
-//     {
-//       method: "POST",
-//       headers: {
-//         accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         refresh: refresh,
-//       }),
-//     },
-//   );
-
-//   const data = (await response.json()) as AccessTokens;
-
-//   return data;
-// };

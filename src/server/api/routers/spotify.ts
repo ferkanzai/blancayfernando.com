@@ -4,7 +4,11 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { accounts } from "@/server/db/schema";
-import { addItemToPlaylist, searchItems } from "@/server/spotifyApi";
+import {
+  addItemToPlaylist,
+  refreshAccessToken,
+  searchItems,
+} from "@/server/spotifyApi";
 
 export const spotifyRouter = createTRPCRouter({
   searchItems: publicProcedure
@@ -24,7 +28,7 @@ export const spotifyRouter = createTRPCRouter({
       }
 
       const [token] = await ctx.db
-        .selectDistinct({ access_token: accounts.access_token })
+        .selectDistinct()
         .from(accounts)
         .where(eq(accounts.userId, input.userId));
 
@@ -36,6 +40,23 @@ export const spotifyRouter = createTRPCRouter({
       }
 
       const response = await searchItems(input.query, token.access_token);
+
+      if (
+        (response as { error: { status: number } })?.error?.status === 401 &&
+        (response as { error: { message: string } })?.error?.message ===
+          "The access token expired"
+      ) {
+        const newToken = await refreshAccessToken(token);
+
+        if (!newToken.access_token) {
+          throw new TRPCError({
+            message: "No se encontró ningún token de Spotify",
+            code: "UNAUTHORIZED",
+          });
+        }
+
+        return searchItems(input.query, newToken.access_token);
+      }
 
       return response;
     }),
@@ -51,7 +72,7 @@ export const spotifyRouter = createTRPCRouter({
         }
 
         const [token] = await ctx.db
-          .selectDistinct({ access_token: accounts.access_token })
+          .selectDistinct()
           .from(accounts)
           .where(eq(accounts.userId, input.userId));
 
@@ -63,6 +84,25 @@ export const spotifyRouter = createTRPCRouter({
         }
 
         const response = await addItemToPlaylist(input.id, token.access_token);
+
+        if (
+          (response as { error: { status: number } })?.error?.status === 401 &&
+          (response as { error: { message: string } })?.error?.message ===
+            "The access token expired"
+        ) {
+          const newToken = await refreshAccessToken(token);
+
+          if (!newToken.access_token) {
+            throw new TRPCError({
+              message: "No se encontró ningún token de Spotify",
+              code: "UNAUTHORIZED",
+            });
+          }
+
+          await addItemToPlaylist(input.id, newToken.access_token);
+
+          return { success: true };
+        }
 
         if (response?.error?.status === 401) {
           throw new TRPCError({
