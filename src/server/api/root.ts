@@ -1,4 +1,5 @@
 import { rsvpRouter } from "@/server/api/routers/rsvp";
+import { spotifyRouter } from "@/server/api/routers/spotify";
 import { validEmailsRouter } from "@/server/api/routers/validEmails";
 import { createTRPCRouter } from "@/server/api/trpc";
 
@@ -10,6 +11,7 @@ import { createTRPCRouter } from "@/server/api/trpc";
 export const appRouter = createTRPCRouter({
   rsvp: rsvpRouter,
   validEmails: validEmailsRouter,
+  spotify: spotifyRouter,
 });
 
 // export type definition of API

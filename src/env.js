@@ -40,6 +40,9 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     EMAIL_FROM: z.string().email(),
     DOPPLER_CONFIG: z.enum(["dev_local", "dev", "prd"]),
+    SPOTIFY_CLIENT_ID: z.string(),
+    SPOTIFY_CLIENT_SECRET: z.string(),
+    SPOTIFY_PLAYLIST_ID: z.string(),
   },
 
   /**
@@ -68,6 +71,9 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
     DOPPLER_CONFIG: process.env.DOPPLER_CONFIG,
+    SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+    SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+    SPOTIFY_PLAYLIST_ID: process.env.SPOTIFY_PLAYLIST_ID,
     // Client-side env vars
     NEXT_PUBLIC_GOOGLE_MAPS_API: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,

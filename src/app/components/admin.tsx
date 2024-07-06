@@ -4,6 +4,7 @@ import { columns } from "@/app/components/admin-table/columns";
 import { DataTable } from "@/app/components/admin-table/data-table";
 import Stats from "@/app/components/stats";
 import { api } from "@/trpc/react";
+import { LogoutButton } from "@/app/components/logout-button";
 
 export default function Admin() {
   const { data, isFetching, isLoading, isRefetching } =
@@ -22,6 +23,7 @@ export default function Admin() {
 
   return (
     <>
+      <LogoutButton />
       <Stats stats={stats} isLoading={loading} />
       <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
       <DataTable

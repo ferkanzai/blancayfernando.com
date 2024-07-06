@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { validEmails } from "@/server/db/schema";
+import { accounts, validEmails } from "@/server/db/schema";
 
 export const validEmailsRouter = createTRPCRouter({
   checkEmail: publicProcedure
@@ -15,5 +15,21 @@ export const validEmailsRouter = createTRPCRouter({
         .where(eq(validEmails.email, email));
 
       return { canSignIn: isEmailInDB.length > 0 };
+    }),
+  checkProvider: publicProcedure
+    .input(z.object({ userId: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      const { userId } = input;
+
+      if (!userId) {
+        return null;
+      }
+
+      const accountHasProvider = await ctx.db
+        .selectDistinct({ provider: accounts.provider })
+        .from(accounts)
+        .where(eq(accounts.userId, userId));
+
+      return accountHasProvider[0] ?? null;
     }),
 });
