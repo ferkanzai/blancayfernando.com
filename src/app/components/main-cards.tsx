@@ -1,6 +1,5 @@
 import FaqCard from "@/app/components/cards/faq-card";
 import GiftCard from "@/app/components/cards/gift-card";
-import MusicCard from "@/app/components/cards/music-card";
 import RsvpCard from "@/app/components/cards/rsvp-card";
 
 export default function MainCards() {
@@ -9,7 +8,6 @@ export default function MainCards() {
       <RsvpCard />
       <FaqCard />
       <GiftCard />
-      <MusicCard />
     </div>
   );
 }
