@@ -13,7 +13,9 @@ import { Separator } from "@/app/components/ui/separator";
 const InfoData = () => {
   return (
     <>
-      <h3 className="text-primar text-xl font-bold">Información</h3>
+      <h3 className="font-maginia text-3xl font-bold text-primary">
+        Información
+      </h3>
       <Accordion
         type="single"
         collapsible
