@@ -88,7 +88,9 @@ export const searchItems = async (
     },
   );
 
-  return response.json();
+  return response.json() as Promise<
+    SpotifySearchResponse | { error: { status: number; message: string } }
+  >;
 };
 
 export const addItemToPlaylist = async (id: string, token: string) => {
