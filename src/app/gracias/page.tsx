@@ -1,3 +1,4 @@
+import GiftCard from "@/app/components/cards/gift-card";
 import InfoData from "@/app/components/info-data";
 
 export default function ThanksPage() {
@@ -9,10 +10,14 @@ export default function ThanksPage() {
       <h2 className="text-xl font-bold text-primary">
         ¡Estamos muy contentos de que puedas venir a nuestra boda!
       </h2>
-      <p>
-        Aquí puedes encontrar más información sobre la celebración y el convite:
-      </p>
-      <InfoData />
+      <div className="flex flex-col items-center gap-4 pb-16">
+        <p>
+          Aquí puedes encontrar más información sobre la celebración y el
+          convite:
+        </p>
+        <InfoData />
+        <GiftCard />
+      </div>
     </>
   );
 }

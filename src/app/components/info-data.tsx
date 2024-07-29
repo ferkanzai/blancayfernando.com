@@ -16,11 +16,7 @@ const InfoData = () => {
       <h3 className="font-maginia text-3xl font-bold text-primary">
         Información
       </h3>
-      <Accordion
-        type="single"
-        collapsible
-        className="w-11/12 pb-16 md:max-w-[700px]"
-      >
+      <Accordion type="single" collapsible className="w-11/12 md:max-w-[700px]">
         <AccordionItem value="timetable">
           <AccordionTrigger>Horarios</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1">
