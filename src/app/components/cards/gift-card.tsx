@@ -25,7 +25,7 @@ export default function GiftCard() {
           </CardHeader>
         </Card>
       </DialogTrigger>
-      <DialogContent className="md:max-w-[900px]">
+      <DialogContent className="max-h-full overflow-y-scroll md:max-w-[900px]">
         <DialogHeader>
           <DialogTitle className="pb-6 text-xl md:pb-0 md:text-2xl">
             Compartir con vosotros este día tan especial es el mejor de los
