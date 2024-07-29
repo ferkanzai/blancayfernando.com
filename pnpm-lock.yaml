@@ -4,7 +4,6 @@ specifiers:
   '@auth/drizzle-adapter': ^0.3.6
   '@googlemaps/react-wrapper': ^1.1.35
   '@hookform/resolvers': ^3.3.4
-  '@midudev/tailwind-animations': ^0.0.7
   '@neondatabase/serverless': ^0.9.0
   '@planetscale/database': ^1.11.0
   '@radix-ui/react-accordion': ^1.1.2
@@ -78,7 +77,6 @@ dependencies:
   '@auth/drizzle-adapter': 0.3.17
   '@googlemaps/react-wrapper': 1.1.35_react@18.2.0
   '@hookform/resolvers': 3.3.4_react-hook-form@7.51.1
-  '@midudev/tailwind-animations': 0.0.7_tailwindcss@3.4.1
   '@neondatabase/serverless': 0.9.0
   '@planetscale/database': 1.15.0
   '@radix-ui/react-accordion': 1.1.2_jq2v3mgqnxhjqzsfthu2a3rfwm
@@ -767,14 +765,6 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
-
-  /@midudev/tailwind-animations/0.0.7_tailwindcss@3.4.1:
-    resolution: {integrity: sha512-K897X4NvM3tV2/R7aCjl6gJ6msWSTqQtcAwb5VX5D5+m/Mo650mEFoeODwqzaePYNro5BTGyXXFQw/kiHBZlUA==}
-    peerDependencies:
-      tailwindcss: ^3.0.0
-    dependencies:
-      tailwindcss: 3.4.1
-    dev: false
 
   /@neondatabase/serverless/0.9.0:
     resolution: {integrity: sha512-mmJnUAzlzvxNSZuuhI6kgJjH+JgFdBMYUWxihtq/nj0Tjt+Y5UU3W+SvRFoucnd5NObYkuLYQzk+zV5DGFKGJg==}
