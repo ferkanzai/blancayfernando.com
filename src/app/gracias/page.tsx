@@ -10,7 +10,7 @@ export default function ThanksPage() {
       <h2 className="text-xl font-bold text-primary">
         ¡Estamos muy contentos de que puedas venir a nuestra boda!
       </h2>
-      <div className="flex flex-col items-center gap-4 pb-16">
+      <div className="flex flex-col items-center gap-8 pb-16">
         <p>
           Aquí puedes encontrar más información sobre la celebración y el
           convite:
