@@ -5,7 +5,19 @@ import { useEffect, useState } from "react";
 
 import { dynamicBlurDataUrl } from "@/app/lib/dynamicBlur";
 
-export function BlurredImage({ url }: { url: string }) {
+export function BlurredImage({
+  url,
+  alt = "logo",
+  className,
+  height = 200,
+  width = 200,
+}: {
+  url: string;
+  alt?: string;
+  className?: string;
+  height?: number;
+  width?: number;
+}) {
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,13 +26,16 @@ export function BlurredImage({ url }: { url: string }) {
 
   return image ? (
     <Image
-      src={url}
-      width={200}
-      height={200}
-      alt="logo"
-      className="cursor-all-scroll rounded-xl object-contain grayscale filter transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0"
-      placeholder="blur"
+      alt={alt}
       blurDataURL={image}
+      className={
+        className ??
+        "cursor-all-scroll rounded-xl object-contain grayscale filter transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0"
+      }
+      height={height}
+      placeholder="blur"
+      src={url}
+      width={width}
     />
   ) : null;
 }

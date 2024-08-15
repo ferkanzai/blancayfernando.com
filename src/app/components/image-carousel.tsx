@@ -44,6 +44,7 @@ export function ImageCarousel() {
             >
               <BlurredImage
                 url={`/carousel/${imageIndex < 10 ? "0" : ""}${imageIndex}.webp`}
+                alt={`Imagen ${imageIndex}`}
               />
             </CarouselItem>
           ))}

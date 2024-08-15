@@ -1,6 +1,6 @@
 import { GiftIcon } from "lucide-react";
-import Image from "next/image";
 
+import { BlurredImage } from "@/app/components/blurred-image";
 import { CopyText } from "@/app/components/copy-text";
 import { Card, CardHeader, CardTitle } from "@/app/components/ui/card";
 import {
@@ -32,11 +32,11 @@ export default function GiftCard() {
             regalos
           </DialogTitle>
           <DialogDescription className="flex flex-col items-center gap-2 text-lg md:flex-row md:items-start md:gap-8">
-            <Image
+            <BlurredImage
               alt="New Zealand"
               className="inline-block max-h-[250px] max-w-[250px] rounded-full"
               height={250}
-              src="/new_zealand_square.webp"
+              url="/new_zealand_square.webp"
               width={250}
             />
             <div className="flex h-full flex-col justify-evenly gap-3 pb-9 pt-5">
