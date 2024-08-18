@@ -30,13 +30,11 @@ import { type FormularySelect } from "@/server/db/schema";
 type DataTableProps<TData extends FormularySelect, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data?: TData[];
-  isLoading?: boolean;
 };
 
 export function DataTable<TData extends FormularySelect, TValue>({
   columns,
   data,
-  isLoading = false,
 }: DataTableProps<
   TData extends FormularySelect ? FormularySelect : TData,
   TValue
@@ -121,7 +119,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
                   colSpan={columns.length}
                   className="h-24 sm:text-center"
                 >
-                  {isLoading ? "Cargando..." : "No hay datos para mostrar"}
+                  No hay datos para mostrar
                 </TableCell>
               </TableRow>
             )}
