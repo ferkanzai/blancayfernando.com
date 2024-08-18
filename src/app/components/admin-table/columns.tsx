@@ -5,7 +5,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@radix-ui/react-icons";
-import { type ColumnDef } from "@tanstack/react-table";
+import { Row, type ColumnDef } from "@tanstack/react-table";
 import { EditIcon, MoreHorizontal } from "lucide-react";
 
 import { DeleteRowButton } from "@/app/components/admin-table/delete-row-button";
@@ -166,38 +166,40 @@ export const columns: ColumnDef<FormularySelect>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const [open, setOpen] = useState(false);
-      const { id } = row.original;
-
-      return (
-        <AlertDialog open={open} onOpenChange={setOpen}>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Abrir menú</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-
-              <DropdownMenuItem asChild className="w-full">
-                <AlertDialogTrigger className="flex cursor-pointer justify-start gap-2">
-                  <EditIcon className="h-4 w-4" />
-                  Editar fila
-                </AlertDialogTrigger>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild className="p-0">
-                <DeleteRowButton id={id} />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <EditRowButton row={row} setOpen={setOpen} />
-        </AlertDialog>
-      );
-    },
+    cell: ({ row }) => <ActionsCell row={row} />,
   },
 ];
+
+const ActionsCell = ({ row }: { row: Row<FormularySelect> }) => {
+  const [open, setOpen] = useState(false);
+  const { id } = row.original;
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Abrir menú</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+
+          <DropdownMenuItem asChild className="w-full">
+            <AlertDialogTrigger className="flex cursor-pointer justify-start gap-2">
+              <EditIcon className="h-4 w-4" />
+              Editar fila
+            </AlertDialogTrigger>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild className="p-0">
+            <DeleteRowButton id={id} />
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <EditRowButton row={row} setOpen={setOpen} />
+    </AlertDialog>
+  );
+};
