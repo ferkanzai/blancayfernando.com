@@ -14,11 +14,13 @@ export default function Admin() {
 
   const going = data?.all?.filter((row) => row.coming).length ?? 0;
   const count = data?.all?.length ?? 0;
+  const specialMenus = data?.all?.filter((row) => row.specialMenu).length ?? 0;
 
   const stats = {
     count,
     going,
     notGoing: count - going,
+    specialMenus,
   };
 
   return (

@@ -1,5 +1,5 @@
 const Stats = ({ stats, isLoading }: Props) => {
-  const { count, going, notGoing } = stats;
+  const { count, going, notGoing, specialMenus } = stats;
 
   return (
     <div className="w-10/12 sm:max-w-[400px]">
@@ -21,6 +21,10 @@ const Stats = ({ stats, isLoading }: Props) => {
               <span className="text-lg">❌ No vienen</span>
               <p className="text-xl">{notGoing}</p>
             </div>
+            <div className="flex items-center justify-between">
+              <span className="text-lg">🐟 Menús especiales</span>
+              <p className="text-xl">{specialMenus}</p>
+            </div>
           </>
         )}
       </div>
@@ -33,6 +37,7 @@ type Props = {
     count: number;
     going: number;
     notGoing: number;
+    specialMenus: number;
   };
   isLoading: boolean;
 };
