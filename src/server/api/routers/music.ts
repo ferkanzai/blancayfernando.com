@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
+import { NeonDbError } from "@neondatabase/serverless";
 
 const literalFields = {
   song: "Canción",
@@ -45,4 +46,19 @@ export const musicRouter = createTRPCRouter({
         });
       }
     }),
+  getData: publicProcedure.query(async ({ ctx }) => {
+    try {
+      const all = await ctx.db.select({ song: musicForm.song }).from(musicForm);
+      const songs = all.map(({ song }) => song);
+
+      return songs;
+    } catch (error) {
+      console.error(
+        ">>>> Error querying form data",
+        (error as ZodError | DrizzleError | NeonDbError).message,
+      );
+
+      return [];
+    }
+  }),
 });

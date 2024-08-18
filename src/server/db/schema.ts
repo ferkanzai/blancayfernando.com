@@ -66,6 +66,7 @@ export const insertFormularySchema = z
 export type FormularySelect = z.infer<
   typeof selectFormularySchemaWithAssociated
 >;
+export type FormularySelectAll = z.infer<typeof selectAllFormularySchema>;
 
 export const musicForm = createTable("music", {
   song: varchar("song", { length: 255 }).notNull(),

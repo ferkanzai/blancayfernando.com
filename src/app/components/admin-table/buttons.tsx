@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/app/components/ui/button";
 import { FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -15,10 +16,14 @@ type Props<TData> = {
 export function TableButtons<TData extends FormularySelect>({
   table,
 }: Props<TData>) {
+  const router = useRouter();
   const utils = api.useUtils();
 
   const { mutate: deleteRows } = api.rsvp.deleteFormularyData.useMutation({
-    onSettled: () => utils.rsvp.invalidate(),
+    onSettled: async () => {
+      await utils.rsvp.invalidate();
+      router.refresh();
+    },
     onSuccess: (data) => {
       toast.success(
         `${data} fila${data !== 1 ? "s" : ""} eliminada${

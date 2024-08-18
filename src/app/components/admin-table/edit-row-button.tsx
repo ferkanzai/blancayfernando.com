@@ -29,6 +29,7 @@ import {
 import { Input } from "@/app/components/ui/input";
 import { type FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 
 export function EditRowButton({
   row,
@@ -38,6 +39,7 @@ export function EditRowButton({
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const utils = api.useUtils();
+  const router = useRouter();
 
   const { original } = row;
 
@@ -66,7 +68,10 @@ export function EditRowButton({
       toast.success("Fila editada correctamente");
       setOpen(false);
     },
-    onSettled: () => utils.rsvp.invalidate(),
+    onSettled: async () => {
+      await utils.rsvp.invalidate();
+      router.refresh();
+    },
   });
 
   const onSubmit = (values: FormularySelectType) => {

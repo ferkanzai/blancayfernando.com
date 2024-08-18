@@ -5,8 +5,10 @@ import { toast } from "sonner";
 
 import { api } from "@/trpc/react";
 import { Button } from "@/app/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export function DeleteRowButton({ id }: { id: number }) {
+  const router = useRouter();
   const utils = api.useUtils();
 
   const { mutate } = api.rsvp.deleteFormularyData.useMutation({
@@ -17,7 +19,10 @@ export function DeleteRowButton({ id }: { id: number }) {
         } correctamente`,
       );
     },
-    onSettled: () => utils.rsvp.invalidate(),
+    onSettled: async () => {
+      await utils.rsvp.invalidate();
+      router.refresh();
+    },
   });
 
   return (
