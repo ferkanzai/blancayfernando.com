@@ -1,5 +1,4 @@
 import { ImageCarousel } from "@/app/components/image-carousel";
-// import { MapWrapper } from "@/app/components/map";
 import MainCards from "@/app/components/main-cards";
 
 export default async function Home() {
@@ -10,7 +9,6 @@ export default async function Home() {
         19 Octubre 2024
       </h1>
       <MainCards />
-      {/* <MapWrapper /> */}
     </main>
   );
 }

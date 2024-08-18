@@ -22,11 +22,11 @@ export function DeleteRowButton({ id }: { id: number }) {
 
   return (
     <Button
-      variant="ghost"
+      variant="destructive"
       onClick={() => mutate([id])}
-      className="flex items-center justify-start gap-1 p-1"
+      className="flex items-center justify-start"
     >
-      <TrashIcon className="h-5 w-5" />
+      <TrashIcon className="h-4 w-4" />
       Elminar fila
     </Button>
   );
