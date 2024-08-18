@@ -5,6 +5,12 @@ import { DataTable } from "@/app/components/admin-table/data-table";
 import Stats from "@/app/components/stats";
 import { api } from "@/trpc/react";
 import { LogoutButton } from "@/app/components/logout-button";
+import {
+  Tabs,
+  TabsList,
+  TabsContent,
+  TabsTrigger,
+} from "@/app/components/ui/tabs";
 
 export default function Admin() {
   const { data, isFetching, isLoading, isRefetching } =
@@ -27,12 +33,27 @@ export default function Admin() {
     <>
       <LogoutButton />
       <Stats stats={stats} isLoading={loading} />
-      <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
+      <Tabs defaultValue="rsvp" className="w-[400px]">
+        <TabsList>
+          <TabsTrigger value="rsvp">Invitados</TabsTrigger>
+          <TabsTrigger value="music">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value="rsvp">
+          <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
+          <DataTable
+            columns={columns}
+            data={data?.withAssociated}
+            isLoading={loading}
+          />
+        </TabsContent>
+        <TabsContent value="music">Change your password here.</TabsContent>
+      </Tabs>
+      {/* <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
       <DataTable
         columns={columns}
         data={data?.withAssociated}
         isLoading={loading}
-      />
+      /> */}
     </>
   );
 }
