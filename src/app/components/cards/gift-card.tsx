@@ -16,7 +16,7 @@ export default function GiftCard() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="group w-full max-w-[430px] cursor-pointer bg-transparent hover:-translate-y-2 hover:shadow-md hover:shadow-accent">
+        <Card className="group flex w-full max-w-[430px] cursor-pointer items-center justify-center bg-transparent hover:-translate-y-2 hover:shadow-md hover:shadow-accent">
           <CardHeader>
             <CardTitle className="flex items-center justify-center gap-4">
               <span className="sm:group-hover:text-secondary">Regalos</span>
