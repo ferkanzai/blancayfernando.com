@@ -1,5 +1,5 @@
 import { type NeonDbError } from "@neondatabase/serverless";
-import { inArray, sql, type DrizzleError } from "drizzle-orm";
+import { eq, inArray, sql, type DrizzleError } from "drizzle-orm";
 import { ZodError, z } from "zod";
 
 import { responseSchema } from "@/app/types/schemas/form";
@@ -110,7 +110,10 @@ export const rsvpRouter = createTRPCRouter({
             allergies::TEXT,
             "associatedTo"::INTEGER,
             coming::BOOLEAN,
+            "specialMenu"::BOOLEAN,
+            "specialMenuValue"::TEXT,
             "createdAt"::TIMESTAMP,
+            "updatedAt"::TIMESTAMP,
             jsonb '[]' AS associated
           FROM 
             ${formulary}
@@ -125,7 +128,10 @@ export const rsvpRouter = createTRPCRouter({
             f.allergies::TEXT,
             f."associatedTo"::INTEGER,
             f.coming::BOOLEAN,
+            f."specialMenu"::BOOLEAN,
+            f."specialMenuValue"::TEXT,
             f."createdAt"::TIMESTAMP,
+            f."updatedAt"::TIMESTAMP,
             jsonb '[]' AS associated
           FROM 
             ${formulary} f
@@ -138,7 +144,10 @@ export const rsvpRouter = createTRPCRouter({
           nf1.allergies,
           nf1."associatedTo",
           nf1.coming,
+          nf1."specialMenu",
+          nf1."specialMenuValue",
           nf1."createdAt",
+          nf1."updatedAt",
           COALESCE(jsonb_agg(
             jsonb_build_object(
               'id', nf2.id,
@@ -146,7 +155,10 @@ export const rsvpRouter = createTRPCRouter({
               'allergies', nf2.allergies,
               'associatedTo', nf2."associatedTo",
               'coming', nf2.coming,
-              'createdAt', nf2."createdAt"
+              'specialMenu', nf2."specialMenu",
+              'specialMenuValue', nf2."specialMenuValue",
+              'createdAt', nf2."createdAt",
+              'updatedAt', nf2."updatedAt"
             )
           ) FILTER (WHERE nf2.id IS NOT NULL), '[]') AS associated
         FROM 
@@ -156,7 +168,7 @@ export const rsvpRouter = createTRPCRouter({
         WHERE 
           nf1."associatedTo" IS NULL
         GROUP BY 
-          nf1.id, nf1.name, nf1.allergies, nf1."associatedTo", nf1.coming, nf1."createdAt"
+          nf1.id, nf1.name, nf1.allergies, nf1."associatedTo", nf1.coming, nf1."specialMenu", nf1."specialMenuValue", nf1."createdAt", nf1."updatedAt"
         ORDER BY 
           nf1.id;
       `;
@@ -173,6 +185,7 @@ export const rsvpRouter = createTRPCRouter({
         ">>>> Error querying form data",
         (error as ZodError | DrizzleError | NeonDbError).message,
       );
+
       return {
         withAssociated: [],
         all: [],
@@ -191,6 +204,40 @@ export const rsvpRouter = createTRPCRouter({
       } catch (error) {
         console.error(
           ">>>> Error deleting form data",
+          (error as ZodError | DrizzleError).message,
+        );
+        return false;
+      }
+    }),
+  editRow: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        allergies: z.string().max(255),
+        specialMenuValue: z.string().max(255),
+        name: z.string(),
+        coming: z.boolean(),
+        specialMenu: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const { id, ...rest } = input;
+        const editSpecialMenu = !!rest.specialMenuValue ?? false;
+
+        const editedRow = await ctx.db
+          .update(formulary)
+          .set({
+            ...rest,
+            updatedAt: sql`CURRENT_TIMESTAMP`,
+            specialMenu: editSpecialMenu,
+          })
+          .where(eq(formulary.id, id));
+
+        return editedRow.rowCount;
+      } catch (error) {
+        console.error(
+          ">>>> Error editing form data",
           (error as ZodError | DrizzleError).message,
         );
         return false;

@@ -6,7 +6,6 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";
-import SpotifyProvider from "next-auth/providers/spotify";
 import { Resend } from "resend";
 
 import SignIn from "@/app/emails/SignIn";
@@ -89,12 +88,6 @@ export const authOptions: NextAuthOptions = {
           return Promise.reject(new Error((error as Error).message));
         }
       },
-    }),
-    SpotifyProvider({
-      clientId: env.SPOTIFY_CLIENT_ID,
-      clientSecret: env.SPOTIFY_CLIENT_SECRET,
-      authorization:
-        "https://accounts.spotify.com/authorize?scope=user-read-email,playlist-modify-public,playlist-modify-private",
     }),
   ],
   pages: {

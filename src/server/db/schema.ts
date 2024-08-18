@@ -31,6 +31,9 @@ export const formulary = createTable("formulary", {
   createdAt: timestamp("createdAt", { mode: "string" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
+  updatedAt: timestamp("updatedAt", { mode: "string" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
   id: serial("id").notNull().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   specialMenu: boolean("specialMenu").notNull().default(false),
