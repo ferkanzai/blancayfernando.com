@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ExpandedState,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
@@ -11,6 +10,7 @@ import {
   useReactTable,
   type ColumnDef,
   type ColumnFiltersState,
+  type ExpandedState,
   type SortingState,
 } from "@tanstack/react-table";
 import { useState } from "react";
@@ -25,7 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/app/components/ui/table";
-import { FormularySelect } from "@/server/db/schema";
+import { type FormularySelect } from "@/server/db/schema";
 
 type DataTableProps<TData extends FormularySelect, TValue> = {
   columns: ColumnDef<TData, TValue>[];

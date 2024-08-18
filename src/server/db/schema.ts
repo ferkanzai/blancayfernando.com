@@ -33,6 +33,8 @@ export const formulary = createTable("formulary", {
     .notNull(),
   id: serial("id").notNull().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
+  specialMenu: boolean("specialMenu").notNull().default(false),
+  specialMenuValue: varchar("specialMenuValue", { length: 255 }),
 });
 
 export const formularyRelations = relations(formulary, ({ one }) => ({
@@ -61,6 +63,19 @@ export const insertFormularySchema = z
 export type FormularySelect = z.infer<
   typeof selectFormularySchemaWithAssociated
 >;
+
+export const musicForm = createTable("music", {
+  song: varchar("song", { length: 255 }).notNull(),
+  id: serial("id").notNull().primaryKey(),
+});
+
+export const selectMusicFormSchema = createSelectSchema(musicForm);
+export const selectAllMusicFormSchema = z.array(selectMusicFormSchema);
+export const insertMusicFormSchema = createInsertSchema(musicForm).omit({
+  id: true,
+});
+
+export type MusicFormSelect = z.infer<typeof selectAllMusicFormSchema>;
 
 export const validEmails = createTable("validEmails", {
   email: varchar("email", { length: 255 }).notNull().primaryKey(),
