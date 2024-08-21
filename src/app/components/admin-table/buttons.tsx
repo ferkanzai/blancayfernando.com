@@ -114,7 +114,7 @@ export function TableButtons<TData extends FormularySelect>({
   };
 
   const saveToSheet = () => {
-    const rows = table.getCoreRowModel().rows.map(formatRow);
+    const rows = table.getExpandedRowModel().flatRows.map(formatRow);
 
     updateSheet(rows);
   };
