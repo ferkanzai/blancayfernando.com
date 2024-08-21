@@ -41,6 +41,11 @@ export const env = createEnv({
     EMAIL_FROM: z.string().email(),
     DOPPLER_CONFIG: z.enum(["dev_local", "dev", "prd_local", "prd"]),
     SPOTIFY_PLAYLIST_ID: z.string(),
+    GOOGLE_PROJECT_ID: z.string(),
+    GOOGLE_PRIVATE_KEY_ID: z.string(),
+    GOOGLE_PRIVATE_KEY: z.string(),
+    GOOGLE_CLIENT_EMAIL: z.string(),
+    GOOGLE_CLIENT_ID: z.string(),
   },
 
   /**
@@ -51,6 +56,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_DOMAIN: z.string().url(),
     NEXT_PUBLIC_IBAN: z.string(),
+    NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: z.string(),
   },
 
   /**
@@ -69,9 +75,16 @@ export const env = createEnv({
     EMAIL_FROM: process.env.EMAIL_FROM,
     DOPPLER_CONFIG: process.env.DOPPLER_CONFIG,
     SPOTIFY_PLAYLIST_ID: process.env.SPOTIFY_PLAYLIST_ID,
+    GOOGLE_PROJECT_ID: process.env.GOOGLE_PROJECT_ID,
+    GOOGLE_PRIVATE_KEY_ID: process.env.GOOGLE_PRIVATE_KEY_ID,
+    GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY,
+    GOOGLE_CLIENT_EMAIL: process.env.GOOGLE_CLIENT_EMAIL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     // Client-side env vars
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
     NEXT_PUBLIC_IBAN: process.env.NEXT_PUBLIC_IBAN,
+    NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL:
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

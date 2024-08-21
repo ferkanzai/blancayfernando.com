@@ -2,12 +2,13 @@
 
 import type { Row, Table } from "@tanstack/react-table";
 import { download, generateCsv, mkConfig } from "export-to-csv";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { SheetsConfig } from "@/app/components/admin-table/sheets-config";
 import { Button } from "@/app/components/ui/button";
 import { FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -32,20 +33,20 @@ export function TableButtons<TData extends FormularySelect>({
       );
     },
   });
-  // const { mutate: updateSheet, isLoading: isUpdatingSheet } =
-  //   api.spreadsheet.addDataToSheet.useMutation({
-  //     onSettled: () => utils.spreadsheet.getSheet.invalidate(),
-  //     onSuccess: () => toast.success("Datos actualizados correctamente"),
-  //     onError: (err) => {
-  //       if (err.data?.code === "BAD_REQUEST") {
-  //         return toast.info("No hay datos nuevos para actualizar");
-  //       }
+  const { mutate: updateSheet, isLoading: isUpdatingSheet } =
+    api.spreadsheet.addDataToSheet.useMutation({
+      onSettled: () => utils.spreadsheet.getSheet.invalidate(),
+      onSuccess: () => toast.success("Datos actualizados correctamente"),
+      onError: (err) => {
+        if (err.data?.code === "BAD_REQUEST") {
+          return toast.info("No hay datos nuevos para actualizar");
+        }
 
-  //       toast.error(err.message);
-  //     },
-  //   });
-  // const { data: sheetConfiguration } =
-  //   api.spreadsheet.getSheetConfiguration.useQuery();
+        toast.error(err.message);
+      },
+    });
+  const { data: sheetConfiguration } =
+    api.spreadsheet.getSheetConfiguration.useQuery();
 
   const selectedRows = table.getFilteredSelectedRowModel().flatRows;
   const totalRows =
@@ -79,6 +80,14 @@ export function TableButtons<TData extends FormularySelect>({
         key: "allergies",
         displayLabel: "Alergias",
       },
+      {
+        key: "specialMenu",
+        displayLabel: "Menú especial",
+      },
+      {
+        key: "specialMenuValue",
+        displayLabel: "Valor del menú especial",
+      },
     ],
   });
 
@@ -88,6 +97,8 @@ export function TableButtons<TData extends FormularySelect>({
       coming: original.coming ? "✅" : "❌",
       allergies: original.allergies ?? "",
       name: original.name ?? "",
+      specialMenu: original.specialMenu ? "✅" : "❌",
+      specialMenuValue: original.specialMenuValue ?? "",
     };
   };
 
@@ -102,11 +113,11 @@ export function TableButtons<TData extends FormularySelect>({
     table.resetRowSelection();
   };
 
-  // const saveToSheet = () => {
-  //   const rows = table.getCoreRowModel().rows.map(formatRow);
+  const saveToSheet = () => {
+    const rows = table.getCoreRowModel().rows.map(formatRow);
 
-  //   updateSheet(rows);
-  // };
+    updateSheet(rows);
+  };
 
   return (
     <div className="flex flex-col items-center justify-between gap-2 space-x-2 py-4 sm:flex-row sm:gap-0">
@@ -114,7 +125,7 @@ export function TableButtons<TData extends FormularySelect>({
         <Button className="tabular-nums" onClick={handleExportData} size="sm">
           Descargar CSV ({totalRows} fila{totalRows !== 1 ? "s" : ""})
         </Button>
-        {/* <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1">
           <Button
             className="tabular-nums"
             disabled={isUpdatingSheet || !sheetConfiguration?.value}
@@ -124,7 +135,7 @@ export function TableButtons<TData extends FormularySelect>({
             Actualizar datos en Spreadsheet
           </Button>
           <SheetsConfig />
-        </div> */}
+        </div>
         <Button
           disabled={selectedRows.length === 0}
           onClick={() => {

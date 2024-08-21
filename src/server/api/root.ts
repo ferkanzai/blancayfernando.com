@@ -1,7 +1,8 @@
+import { musicRouter } from "@/server/api/routers/music";
 import { rsvpRouter } from "@/server/api/routers/rsvp";
+import { spreadsheetRouter } from "@/server/api/routers/spreadsheet";
 import { validEmailsRouter } from "@/server/api/routers/validEmails";
 import { createTRPCRouter } from "@/server/api/trpc";
-import { musicRouter } from "./routers/music";
 
 /**
  * This is the primary router for your server.
@@ -11,6 +12,7 @@ import { musicRouter } from "./routers/music";
 export const appRouter = createTRPCRouter({
   music: musicRouter,
   rsvp: rsvpRouter,
+  spreadsheet: spreadsheetRouter,
   validEmails: validEmailsRouter,
 });
 

@@ -159,3 +159,16 @@ export const verificationTokens = createTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 );
+
+export const sheetsConfiguration = createTable("sheetsConfiguration", {
+  value: varchar("value", { length: 255 }).notNull().primaryKey(),
+});
+
+export const selectSheetsConfigurationSchema =
+  createSelectSchema(sheetsConfiguration);
+export const insertSheetsConfigurationSchema =
+  createInsertSchema(sheetsConfiguration);
+
+export type SheetsConfiguration = z.infer<
+  typeof selectSheetsConfigurationSchema
+>;
