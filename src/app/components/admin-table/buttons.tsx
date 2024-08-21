@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 import { SheetsConfig } from "@/app/components/admin-table/sheets-config";
 import { Button } from "@/app/components/ui/button";
-import { FormularySelect } from "@/server/db/schema";
+import { type FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
 
 type Props<TData> = {

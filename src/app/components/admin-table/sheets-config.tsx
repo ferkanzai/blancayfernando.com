@@ -114,7 +114,7 @@ function Description() {
         copiar)
         <CopyText text={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL ?? ""} />
       </p>
-      <p>3. Renombra "Hoja 1" a "Invitados"</p>
+      <p>3. Renombra &quot;Hoja 1&quot; a &quot;Invitados&quot;</p>
       <p>4. Copia el ID de la hoja de cálculo y pégalo en el campo inferior</p>
     </div>
   );
