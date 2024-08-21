@@ -67,7 +67,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
   });
 
   return (
-    <div className="w-full max-w-[1500px] overflow-x-auto">
+    <div className="w-full overflow-x-auto md:max-w-[1500px]">
       <TableFilters table={table} />
       <div className="rounded-md border">
         <Table>

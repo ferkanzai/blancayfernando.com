@@ -90,7 +90,7 @@ export function EditRowButton({
         <AlertDialogDescription>
           <Form {...form}>
             <form
-              className="flex w-full flex-col gap-4 pb-10 sm:px-8 md:px-0"
+              className="flex flex-col gap-4 pb-10 sm:px-8 md:px-0"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
@@ -98,10 +98,13 @@ export function EditRowButton({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="flex items-center gap-3">
-                    <FormLabel className="w-96 text-right">ID</FormLabel>
+                    <FormLabel className="basis-32 text-left md:basis-56 md:text-right">
+                      ID
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
+                        className="md:basis-[80%]"
                         placeholder={original.id.toString()}
                         disabled
                       />
@@ -115,12 +118,13 @@ export function EditRowButton({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="flex items-center gap-3">
-                    <FormLabel className="w-96 text-right">
+                    <FormLabel className="basis-32 text-left md:basis-56 md:text-right">
                       Nombre y apellidos
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
+                        className="md:basis-[80%]"
                         placeholder={original.name ?? "Nombre y apellidos"}
                       />
                     </FormControl>
@@ -132,8 +136,11 @@ export function EditRowButton({
                 name="coming"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-end gap-3">
-                    <FormLabel className="w-96 text-right" htmlFor="coming">
+                  <FormItem className="flex items-center justify-between gap-3 md:justify-end">
+                    <FormLabel
+                      className="basis-32 text-left md:basis-56 md:text-right"
+                      htmlFor="coming"
+                    >
                       Asistencia
                     </FormLabel>
                     <FormControl>
@@ -154,12 +161,13 @@ export function EditRowButton({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="flex items-center gap-3">
-                    <FormLabel className="w-96 text-right">
+                    <FormLabel className="basis-32 text-left md:basis-56 md:text-right">
                       Alergias o intolerancias
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
+                        className="md:basis-[80%]"
                         placeholder={
                           original.allergies ?? "Alergias o intolerancias"
                         }
@@ -173,9 +181,9 @@ export function EditRowButton({
                 name="specialMenu"
                 control={form.control}
                 render={() => (
-                  <FormItem className="flex items-center justify-end gap-3">
+                  <FormItem className="flex items-center justify-between gap-3 md:justify-end">
                     <FormLabel
-                      className="w-96 text-right"
+                      className="basis-56 text-left  md:text-right"
                       htmlFor="specialMenu"
                     >
                       ¿Necesita menú especial?
@@ -198,12 +206,13 @@ export function EditRowButton({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="flex items-center gap-3">
-                    <FormLabel className="w-96 text-right">
+                    <FormLabel className="basis-32 text-left md:basis-56 md:text-right">
                       Menú especial
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
+                        className="md:basis-[80%]"
                         placeholder={
                           original.specialMenuValue ?? "Menú especial"
                         }

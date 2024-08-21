@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { columns } from "@/app/components/admin-table/columns";
 import { DataTable } from "@/app/components/admin-table/data-table";
 import {
@@ -20,18 +22,19 @@ const TabsComponent = ({
   return (
     <Tabs
       defaultValue="rsvp"
-      className="flex flex-col items-center justify-center gap-4"
+      className="flex w-full flex-col items-center justify-center gap-4"
     >
       <TabsList>
         <TabsTrigger value="rsvp">Invitados</TabsTrigger>
         <TabsTrigger value="music">Música sugerida</TabsTrigger>
       </TabsList>
-      <TabsContent value="rsvp">
-        <h2 className="text-center text-3xl font-bold">📗 Lista completa</h2>
+      <TabsContent value="rsvp" asChild>
         <DataTable columns={columns} data={data?.withAssociated} />
       </TabsContent>
-      <TabsContent value="music">
-        <MusicSuggestions />
+      <TabsContent value="music" asChild>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MusicSuggestions />
+        </Suspense>
       </TabsContent>
     </Tabs>
   );
