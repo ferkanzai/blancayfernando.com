@@ -15,12 +15,13 @@ const poppins = Poppins({
   weight: "400",
 });
 
-const environments = z.enum(["dev_local", "dev", "prd"]);
+const environments = z.enum(["dev_local", "dev", "prd_local", "prd"]);
 type Environments = z.infer<typeof environments>;
 
 const baseUrl: Record<Environments, string> = {
   dev_local: "http://localhost:3000",
   dev: "https://pruebas.blancayfernando.com",
+  prd_local: "http://localhost:3000",
   prd: "https://blancayfernando.com",
 };
 
