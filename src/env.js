@@ -39,7 +39,7 @@ export const env = createEnv({
     EMAIL_SERVER_USER: z.string(),
     RESEND_API_KEY: z.string(),
     EMAIL_FROM: z.string().email(),
-    DOPPLER_CONFIG: z.enum(["dev_local", "dev", "prd"]),
+    DOPPLER_CONFIG: z.enum(["dev_local", "dev", "prd_local", "prd"]),
     SPOTIFY_PLAYLIST_ID: z.string(),
   },
 

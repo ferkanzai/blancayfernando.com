@@ -35,10 +35,7 @@ type DataTableProps<TData extends FormularySelect, TValue> = {
 export function DataTable<TData extends FormularySelect, TValue>({
   columns,
   data,
-}: DataTableProps<
-  TData extends FormularySelect ? FormularySelect : TData,
-  TValue
->) {
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -48,8 +45,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
     columns,
     data: data ?? [],
     getCoreRowModel: getCoreRowModel(),
-    // @ts-expect-error - TODO: fix typings
-    getSubRows: (row) => row.associated,
+    getSubRows: (row) => (row.associated as TData[]) ?? [],
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -67,7 +63,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
   });
 
   return (
-    <div className="w-full overflow-x-auto md:max-w-[1500px]">
+    <div className="w-full overflow-x-auto md:max-w-[1200px]">
       <TableFilters table={table} />
       <div className="rounded-md border">
         <Table>
@@ -78,7 +74,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className={`min-w-[${header.column.columnDef.minSize}px] w-[${header.column.columnDef.size}px]`}
+                      className={header.column.columnDef.meta?.headerClassName}
                     >
                       {header.isPlaceholder
                         ? null
@@ -102,8 +98,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-                      align={(cell.column.columnDef.meta as any)?.align}
+                      className={cell.column.columnDef.meta?.cellClassName}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

@@ -51,7 +51,7 @@ export const selectFormularySchema = createSelectSchema(formulary);
 export const selectAllFormularySchema = z.array(selectFormularySchema);
 export const selectFormularySchemaWithAssociated = selectFormularySchema.extend(
   {
-    associated: z.array(selectFormularySchema),
+    associated: z.array(selectFormularySchema).optional(),
     createdAt: z.string(),
   },
 );

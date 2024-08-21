@@ -74,7 +74,12 @@ export function SignInForm({ error }: { error: string | null }) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} className="text-base" placeholder="Email" />
+                <Input
+                  {...field}
+                  className="text-base"
+                  placeholder="Email"
+                  autoFocus
+                />
               </FormControl>
               {form.formState.errors?.email ? (
                 <FormMessage className="text-red-500" />

@@ -50,6 +50,9 @@ export const columns: ColumnDef<FormularySelect>[] = [
         aria-label="Seleccionar fila"
       />
     ),
+    meta: {
+      headerClassName: "w-12",
+    },
   },
   {
     accessorKey: "name",
@@ -80,7 +83,7 @@ export const columns: ColumnDef<FormularySelect>[] = [
     cell: ({ row, getValue }) => (
       <div
         style={{
-          paddingLeft: `${row.depth * 2}rem`,
+          paddingLeft: `${row.depth * 1.5}rem`,
         }}
       >
         <div className="flex items-center gap-2">
@@ -93,12 +96,17 @@ export const columns: ColumnDef<FormularySelect>[] = [
             >
               {row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronRightIcon />}
             </button>
+          ) : row.depth === 0 ? (
+            <div className="w-4" />
           ) : null}{" "}
           {getValue<boolean>()}
         </div>
       </div>
     ),
-    minSize: 200,
+    meta: {
+      headerClassName: "w-[350px]",
+      cellClassName: "w-[350px]",
+    },
   },
   {
     accessorKey: "coming",
@@ -115,7 +123,8 @@ export const columns: ColumnDef<FormularySelect>[] = [
     },
     cell: ({ row }) => (row.getValue("coming") ? "✅" : "❌"),
     meta: {
-      align: "center",
+      headerClassName: "max-w-32",
+      cellClassName: "max-w-32 text-center",
     },
   },
   {
@@ -140,14 +149,15 @@ export const columns: ColumnDef<FormularySelect>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Necesita menú especial
+          ¿Menú especial?
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => (row.getValue("specialMenu") ? "✅" : "❌"),
     meta: {
-      align: "center",
+      headerClassName: "max-w-48",
+      cellClassName: "max-w-48 text-center",
     },
   },
   {
@@ -167,6 +177,9 @@ export const columns: ColumnDef<FormularySelect>[] = [
   {
     id: "actions",
     cell: ({ row }) => <ActionsCell row={row} />,
+    meta: {
+      headerClassName: "w-12",
+    },
   },
 ];
 
