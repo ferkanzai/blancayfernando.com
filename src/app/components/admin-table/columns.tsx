@@ -5,7 +5,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@radix-ui/react-icons";
-import { Row, type ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef, type Row } from "@tanstack/react-table";
 import { EditIcon, MoreHorizontal } from "lucide-react";
 
 import { DeleteRowButton } from "@/app/components/admin-table/delete-row-button";

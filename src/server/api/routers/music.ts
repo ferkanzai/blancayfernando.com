@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { NeonDbError } from "@neondatabase/serverless";
+import { type NeonDbError } from "@neondatabase/serverless";
 
 const literalFields = {
   song: "Canción",

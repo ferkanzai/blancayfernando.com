@@ -2,14 +2,17 @@ import { Suspense } from "react";
 
 import { columns } from "@/app/components/admin-table/columns";
 import { DataTable } from "@/app/components/admin-table/data-table";
+import MusicSuggestions from "@/app/components/music-suggestions";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
-import { FormularySelect, FormularySelectAll } from "@/server/db/schema";
-import MusicSuggestions from "@/app/components/music-suggestions";
+import {
+  type FormularySelect,
+  type FormularySelectAll,
+} from "@/server/db/schema";
 
 const TabsComponent = ({
   data,
