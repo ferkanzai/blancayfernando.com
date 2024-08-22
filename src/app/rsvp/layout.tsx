@@ -8,6 +8,7 @@ export const metadata = {
     description:
       "Confírmanos si vienes a nuestra boda desde esta página. ¡Gracias!",
     images: ["/logo_no_date.png"],
+    siteName: "Boda de Blanca y Fernando",
   },
 };
 

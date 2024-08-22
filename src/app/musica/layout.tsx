@@ -8,6 +8,7 @@ export const metadata = {
     description:
       "¡Ayúdanos a hacer el día de nuestra boda más especial sugiriendo alguna canción! ¡Gracias!",
     images: ["/logo_no_date.png"],
+    siteName: "Boda de Blanca y Fernando",
   },
 };
 
