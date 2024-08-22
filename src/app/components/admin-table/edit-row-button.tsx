@@ -104,7 +104,7 @@ export function EditRowButton({
                     <FormControl>
                       <Input
                         {...field}
-                        className="md:basis-[80%]"
+                        className="text-base md:basis-[80%]"
                         placeholder={original.id.toString()}
                         disabled
                       />
@@ -124,7 +124,7 @@ export function EditRowButton({
                     <FormControl>
                       <Input
                         {...field}
-                        className="md:basis-[80%]"
+                        className="text-base md:basis-[80%]"
                         placeholder={original.name ?? "Nombre y apellidos"}
                       />
                     </FormControl>
@@ -167,7 +167,7 @@ export function EditRowButton({
                     <FormControl>
                       <Input
                         {...field}
-                        className="md:basis-[80%]"
+                        className="text-base md:basis-[80%]"
                         placeholder={
                           original.allergies ?? "Alergias o intolerancias"
                         }
@@ -212,7 +212,7 @@ export function EditRowButton({
                     <FormControl>
                       <Input
                         {...field}
-                        className="md:basis-[80%]"
+                        className="text-base md:basis-[80%]"
                         placeholder={
                           original.specialMenuValue ?? "Menú especial"
                         }
