@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Viewport } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
@@ -60,6 +62,8 @@ export default function RootLayout({
         <Header />
         <TRPCReactProvider>{children}</TRPCReactProvider>
         <Toaster position="top-center" richColors />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
