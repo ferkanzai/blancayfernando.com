@@ -8,6 +8,7 @@ export const metadata = {
     description:
       "Gracias por ayuda a hacer de nuestra boda un día inolvidable. ¡Nos vemos pronto!",
     images: ["/logo_no_date.png"],
+    siteName: "Boda de Blanca y Fernando",
   },
 };
 

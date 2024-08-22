@@ -36,6 +36,7 @@ export const metadata = {
     description:
       "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
     images: ["/logo_no_date.png"],
+    siteName: "Boda de Blanca y Fernando",
   },
 };
 
