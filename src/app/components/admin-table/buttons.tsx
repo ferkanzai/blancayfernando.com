@@ -120,8 +120,8 @@ export function TableButtons<TData extends FormularySelect>({
   };
 
   return (
-    <div className="flex flex-col items-center justify-between gap-2 space-x-2 py-4 sm:flex-row sm:gap-0">
-      <div className="flex flex-col gap-2 md:flex-row">
+    <div className="flex flex-col items-center justify-between gap-2 py-4 lg:flex-row">
+      <div className="flex flex-col gap-2 lg:flex-row">
         <Button className="tabular-nums" onClick={handleExportData} size="sm">
           Descargar CSV ({totalRows} fila{totalRows !== 1 ? "s" : ""})
         </Button>
@@ -154,8 +154,9 @@ export function TableButtons<TData extends FormularySelect>({
           Eliminar filas
         </Button>
       </div>
-      <div className="flex gap-2">
+      <div className="flex w-[304px] gap-2">
         <Button
+          className="flex-1"
           disabled={!table.getCanPreviousPage()}
           onClick={() => table.previousPage()}
           size="sm"
@@ -164,6 +165,7 @@ export function TableButtons<TData extends FormularySelect>({
           Anterior
         </Button>
         <Button
+          className="flex-1"
           disabled={!table.getCanNextPage()}
           onClick={() => table.nextPage()}
           size="sm"
