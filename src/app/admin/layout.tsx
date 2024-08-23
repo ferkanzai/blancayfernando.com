@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Bode de Blanca y Fernando - Admin",
+  title: "Boda de Blanca y Fernando - Admin",
   description:
     "Página de administración, para controlar las estadísticas y la lista de invitados",
 };
