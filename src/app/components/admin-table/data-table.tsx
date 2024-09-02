@@ -54,6 +54,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onExpandedChange: setExpanded,
+    filterFromLeafRows: true,
     state: {
       columnFilters,
       rowSelection,
@@ -63,7 +64,7 @@ export function DataTable<TData extends FormularySelect, TValue>({
   });
 
   return (
-    <div className="w-full overflow-x-auto md:max-w-[1200px]">
+    <div className="w-full overflow-x-auto md:max-w-[1300px]">
       <TableFilters table={table} />
       <div className="rounded-md border">
         <Table>

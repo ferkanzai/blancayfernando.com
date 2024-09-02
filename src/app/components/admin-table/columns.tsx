@@ -104,8 +104,8 @@ export const columns: ColumnDef<FormularySelect>[] = [
       </div>
     ),
     meta: {
-      headerClassName: "w-[350px]",
-      cellClassName: "w-[350px]",
+      headerClassName: "min-w-[370px]",
+      cellClassName: "min-w-[370px]",
     },
   },
   {
@@ -140,6 +140,10 @@ export const columns: ColumnDef<FormularySelect>[] = [
         </Button>
       );
     },
+    meta: {
+      headerClassName: "min-w-[400px]",
+      cellClassName: "min-w-[400px]",
+    },
   },
   {
     accessorKey: "specialMenu",
@@ -156,8 +160,8 @@ export const columns: ColumnDef<FormularySelect>[] = [
     },
     cell: ({ row }) => (row.getValue("specialMenu") ? "✅" : "❌"),
     meta: {
-      headerClassName: "max-w-48",
-      cellClassName: "max-w-48 text-center",
+      headerClassName: "max-w-36",
+      cellClassName: "max-w-36 text-center",
     },
   },
   {
@@ -172,6 +176,10 @@ export const columns: ColumnDef<FormularySelect>[] = [
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    meta: {
+      headerClassName: "max-w-36",
+      cellClassName: "max-w-36 text-center",
     },
   },
   {
