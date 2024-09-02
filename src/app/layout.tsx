@@ -30,13 +30,13 @@ const baseUrl: Record<Environments, string> = {
 export const metadata = {
   title: "Boda de Blanca y Fernando",
   description:
-    "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
+    "Nuestra boda se celebrará el 19 de Octubre de 2024 a las 13:00 horas en la Real Basílica de Nuestra Señora de Atocha",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   metadataBase: new URL(baseUrl[env.DOPPLER_CONFIG]),
   openGraph: {
     url: "/",
     description:
-      "Nuestra boda se celebrará el 19 de Octubre de 2024 en la Real Basílica de Nuestra Señora de Atocha",
+      "Nuestra boda se celebrará el 19 de Octubre de 2024 a las 13:00 horas en la Real Basílica de Nuestra Señora de Atocha",
     images: ["/logo_no_date.png"],
     siteName: "Boda de Blanca y Fernando",
   },
