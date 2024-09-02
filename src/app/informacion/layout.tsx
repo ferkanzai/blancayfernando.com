@@ -1,12 +1,12 @@
 export const metadata = {
   title: "Boda de Blanca y Fernando - ¡Información!",
   description:
-    "Gracias por ayuda a hacer de nuestra boda un día inolvidable. ¡Nos vemos pronto!",
+    "Nuestra boda se celebrará el 19 de Octubre de 2024 a las 13:00 horas en la Real Basílica de Nuestra Señora de Atocha",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     url: "/informacion",
     description:
-      "Gracias por ayuda a hacer de nuestra boda un día inolvidable. ¡Nos vemos pronto!",
+      "Nuestra boda se celebrará el 19 de Octubre de 2024 a las 13:00 horas en la Real Basílica de Nuestra Señora de Atocha",
     images: ["/logo_no_date.png"],
     siteName: "Boda de Blanca y Fernando",
   },
