@@ -32,7 +32,9 @@ const TabsComponent = ({
         <TabsTrigger value="music">Música sugerida</TabsTrigger>
       </TabsList>
       <TabsContent value="rsvp" asChild>
-        <DataTable columns={columns} data={data?.withAssociated} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DataTable columns={columns} data={data?.withAssociated} />
+        </Suspense>
       </TabsContent>
       <TabsContent value="music" asChild>
         <Suspense fallback={<div>Loading...</div>}>

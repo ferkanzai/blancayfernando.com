@@ -25,7 +25,9 @@ export default async function Admin() {
       <Suspense fallback={<div>Loading...</div>}>
         <Stats stats={stats} />
       </Suspense>
-      <TabsComponent data={data} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <TabsComponent data={data} />
+      </Suspense>
     </>
   );
 }
