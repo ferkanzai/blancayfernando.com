@@ -204,7 +204,7 @@ export function TableButtons<TData extends FormularySelect>({
         </div>
         <Select onValueChange={(e) => table.setPageSize(Number(e))}>
           <SelectTrigger className="outline-none ring-0 focus:ring-0 focus:ring-offset-0">
-            <SelectValue placeholder="Mostrar 10 filas" />
+            <SelectValue placeholder="Mostrar 30 filas" defaultValue={30} />
           </SelectTrigger>
           <SelectContent>
             {[10, 20, 30, 40, 50].map((pageSize) => (

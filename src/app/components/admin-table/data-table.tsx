@@ -11,6 +11,7 @@ import {
   type ColumnDef,
   type ColumnFiltersState,
   type ExpandedState,
+  type PaginationState,
   type SortingState,
 } from "@tanstack/react-table";
 import { useState } from "react";
@@ -40,6 +41,10 @@ export function DataTable<TData extends FormularySelect, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 30,
+  });
 
   const table = useReactTable({
     columns,
@@ -54,12 +59,14 @@ export function DataTable<TData extends FormularySelect, TValue>({
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onExpandedChange: setExpanded,
+    onPaginationChange: setPagination,
     filterFromLeafRows: true,
     state: {
       columnFilters,
       rowSelection,
       sorting,
       expanded,
+      pagination,
     },
   });
 
