@@ -7,6 +7,13 @@ import { toast } from "sonner";
 
 import { SheetsConfig } from "@/app/components/admin-table/sheets-config";
 import { Button } from "@/app/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/components/ui/select";
 import { type FormularySelect } from "@/server/db/schema";
 import { api } from "@/trpc/react";
 
@@ -154,25 +161,59 @@ export function TableButtons<TData extends FormularySelect>({
           Eliminar filas
         </Button>
       </div>
-      <div className="flex w-[304px] gap-2">
-        <Button
-          className="flex-1"
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-          size="sm"
-          variant="outline"
-        >
-          Anterior
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-          size="sm"
-          variant="outline"
-        >
-          Siguiente
-        </Button>
+      <div className="flex flex-col gap-2 py-4">
+        <div className="flex w-[304px] gap-2">
+          <Button
+            className="flex-1"
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.previousPage()}
+            size="sm"
+            variant="outline"
+          >
+            Anterior
+          </Button>
+          <Button
+            className="flex-1"
+            disabled={!table.getCanNextPage()}
+            onClick={() => table.nextPage()}
+            size="sm"
+            variant="outline"
+          >
+            Siguiente
+          </Button>
+        </div>
+        <div className="flex w-[304px] gap-2">
+          <Button
+            className="flex-1"
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.firstPage()}
+            size="sm"
+            variant="outline"
+          >
+            Primera página
+          </Button>
+          <Button
+            className="flex-1"
+            disabled={!table.getCanNextPage()}
+            onClick={() => table.lastPage()}
+            size="sm"
+            variant="outline"
+          >
+            Última página
+          </Button>
+        </div>
+        <Select onValueChange={(e) => table.setPageSize(Number(e))}>
+          <SelectTrigger className="outline-none ring-0 focus:ring-0 focus:ring-offset-0">
+            <SelectValue placeholder="Mostrar 10 filas" />
+          </SelectTrigger>
+          <SelectContent>
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <SelectItem key={pageSize} value={pageSize.toString()}>
+                Mostrar {pageSize} filas
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
