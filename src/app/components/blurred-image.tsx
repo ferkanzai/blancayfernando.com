@@ -6,16 +6,16 @@ import { useEffect, useState } from "react";
 import { dynamicBlurDataUrl } from "@/app/lib/dynamicBlur";
 
 export function BlurredImage({
-  url,
   alt = "logo",
   className,
   height = 200,
+  url,
   width = 200,
 }: {
-  url: string;
   alt?: string;
   className?: string;
   height?: number;
+  url: string;
   width?: number;
 }) {
   const [image, setImage] = useState<string | null>(null);
